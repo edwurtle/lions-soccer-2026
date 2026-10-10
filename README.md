@@ -1,0 +1,44 @@
+# Walkersville Lions Boys Soccer · 2026
+
+A family & friends site for the 2026 boys varsity and JV seasons: next game with countdown and
+ticket links, latest-result highlights, full schedule/results, roster + coaches, and a searchable
+photo catalog (filter by game, team, jersey number, or free-text search).
+
+Plain static site in `site/`: no framework and no build step to view it.
+
+## View
+`python3 -m http.server -d site 8000` → http://localhost:8000 (or just open `site/index.html`)
+
+## Where the data comes from
+| What | Source | File |
+|---|---|---|
+| Games, times, varsity + JV scores, rosters, coaches | ArbiterLive team pages (auto) | fetched by `scripts/build.py` (URLs in `data/roster.json`) |
+| Backup varsity league scores | MPSSAA scores API (auto) | fetched by `scripts/build.py` |
+| GoFan ticket links, game notes, opponent mascots | hand-maintained | `data/schedule.json` |
+| Coach bios | old lionssoccer.org staff page | `data/roster.json` |
+| Photos | shared Google Drive, hand-picked | `scripts/cache/picks.txt` → `data/photos.json` |
+
+## Update
+```sh
+python3 scripts/build.py                 # refresh games/scores/rosters + rebuild site/data.js (run after any data edit)
+```
+
+### Adding photos
+1. `python3 scripts/drive_index.py <drive-folder-id> scripts/cache/drive.json`: index the Drive folders
+2. Map any new folder to its game in `data/photo_folders.json`
+3. Add picks to `scripts/cache/picks.txt` as `tag|jersey numbers|caption|featured`
+   (tags come from the contact-sheet step; `cand.json` maps tag → Drive file)
+4. `.venv/bin/python scripts/photos.py` downloads only the picks at web size (WebP), then run `build.py`
+
+Pillow is needed for `photos.py`: `python3 -m venv .venv && .venv/bin/pip install pillow`
+
+### Picking good photos
+`scripts/curate/score.py` scores 320px previews for sharpness/exposure and collapses burst shots;
+`scripts/curate/sheets.py` then builds numbered contact sheets of the top candidates per game for
+eyeballing. The sheet tags (e.g. `02-41`) are what go in `picks.txt`.
+
+## Hosting
+GitHub Pages, same setup as md-soccer-rankings. `.github/workflows/deploy.yml` runs nightly and on every
+push to `main`: it refreshes games/scores/rosters with `scripts/build.py`, commits `site/data.js`, and
+publishes `site/`. If ArbiterLive is unreachable it deploys the last good data.
+Refresh on demand: `gh workflow run deploy.yml`.

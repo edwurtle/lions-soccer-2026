@@ -1,0 +1,174 @@
+#!/usr/bin/env python3
+"""Build site/data.js: schedule, results, rosters and coaches from ArbiterLive, plus the photo catalog.
+
+ArbiterLive team pages give both levels' games (times, home/away, scores, league vs non-league),
+the player rosters and coaches. The MPSSAA scores API (same source as ../soccer) fills any varsity
+league score Arbiter hasn't posted yet; MPSSAA lists games from the home school's side, so scores
+are flipped when Walkersville isn't the listed school.
+"""
+import datetime, html, json, pathlib, re, subprocess
+
+API = "https://www.mpssaa.org/wp-json/smartsheet-sports/v1/"
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+DATA = ROOT / "data"
+US = "Walkersville"
+RES = {"Win": "W", "Forfeit-Win": "W", "Loss": "L", "Forfeit-Loss": "L", "Tie": "T"}
+FLIP = {"W": "L", "L": "W", "T": "T"}
+
+
+def curl(url, nonce=None):
+    cmd = ["curl", "-sL", "-A", "Mozilla/5.0", "--max-time", "60"]
+    if nonce:
+        cmd += ["-H", f"X-WP-Nonce: {nonce}"]
+    return subprocess.check_output(cmd + [url]).decode()
+
+
+def mpssaa_results():
+    """{(date, opponent): {res, gf, ga}} for Walkersville boys varsity."""
+    nonce = re.search(r'"nonce":"([a-z0-9]+)"', curl("https://www.mpssaa.org/live-scores/")).group(1)
+    out, off = {}, 0
+    while True:
+        d = json.loads(curl(f"{API}recent-results?sport=boys-soccer&limit=100&offset={off}&status=", nonce))
+        for g in d["games"]:
+            if US not in (g["school"], g["opponent"]):
+                continue
+            r = RES.get(g["result"])
+            if not r:
+                continue
+            ours = g["school"] == US
+            opp = g["opponent"] if ours else g["school"]
+            gf, ga = (g["your_score"], g["opponent_score"]) if ours else (g["opponent_score"], g["your_score"])
+            out[(g["game_date"], opp)] = dict(res=r if ours else FLIP[r], gf=gf, ga=ga,
+                                              ff=g["result"].startswith("Forfeit"))
+        off += d["count"]
+        if d["count"] == 0 or off >= d["total"]:
+            break
+    return out
+
+
+def cells(fragment):
+    for tr in re.findall(r"<tr[^>]*>(.*?)</tr>", fragment, re.S):
+        row = [" ".join(html.unescape(re.sub(r"<[^>]+>", " ", c)).split()) for c in re.findall(r"<td[^>]*>(.*?)</td>", tr, re.S)]
+        if row:
+            yield row
+
+
+def opp_name(raw):
+    """'Middletown (MD) High School' -> 'Middletown'."""
+    n = re.sub(r"\s*\(MD\)|\s+High School$", "", raw).strip()
+    return {"St. Johns Catholic Prep": "St. John's Catholic Prep"}.get(n, n)
+
+
+def arbiter_games(page, year):
+    """{(date, opp): game} from the schedule tab of an ArbiterLive team page."""
+    out = {}
+    for c in cells(page[page.index("<body"):page.index('id="tabTeamRoster"')]):
+        m = re.match(r"\w{3} (\w{3}) (\d+)\s*(.*)", c[0])
+        if not m or c[1] not in ("vs", "@"):
+            continue
+        date = datetime.datetime.strptime(f"{m[1]} {m[2]} {year}", "%b %d %Y").date().isoformat()
+        res = next((re.match(r"([WLT]) (\d+)-(\d+)$", x) for x in c if re.match(r"[WLT] \d+-\d+$", x)), None)
+        g = dict(date=date, opp=opp_name(c[2]), home=c[1] == "vs", time=m[3] if m[3] != "TBA" else None,
+                 league="L" in c[4:], scrimmage="S" in c[4:], canceled="Canceled" in c,
+                 result=dict(res=res[1], gf=int(res[2]), ga=int(res[3])) if res else None)
+        key = (date, g["opp"])
+        if key not in out or (g["result"] and not out[key]["result"]):  # Arbiter sometimes lists a game twice
+            out[key] = g
+    return out
+
+
+def arbiter_team(page):
+    """Players and coaches from an ArbiterLive team page's roster tab."""
+    tab = page[page.index('id="tabTeamRoster"'):]
+    tab = tab[:tab.index("</table>", tab.index("Title"))]
+    players, coaches = [], []
+    for c in cells(tab):
+        if len(c) >= 3 and c[0].isdigit():
+            last, _, first = c[1].partition(",")
+            ht = c[4] if len(c) > 4 else ""
+            if not re.fullmatch(r"[4-7]'\d{1,2}\"", ht):  # Arbiter has junk heights like 0'5"
+                ht = ""
+            players.append(dict(num=int(c[0]), name=f"{first.strip()} {last.strip()}".strip(),
+                                grade=c[2] or None, pos=(c[3] if len(c) > 3 else "") or None, height=ht or None))
+        elif len(c) == 2 and c[0] and not c[0].isdigit():
+            coaches.append(dict(name=c[0], role=c[1]))
+    return players, coaches
+
+
+def main():
+    sched = json.loads((DATA / "schedule.json").read_text())
+    cfg = json.loads((DATA / "roster.json").read_text())
+    year = sched["season"]
+    roster, coaches, by_level = {}, {}, {}
+    for level, url in cfg["arbiter"].items():
+        page = curl(url)
+        if 'id="tabTeamRoster"' not in page:  # Arbiter down or changed: keep the last good site/data.js
+            raise SystemExit(f"ArbiterLive {level} page didn't load; site/data.js left unchanged")
+        players, staff = arbiter_team(page)
+        roster[level] = players
+        by_level[level] = arbiter_games(page, year)
+        for c in staff:
+            coaches.setdefault(c["name"], dict(c, teams=[], bio=cfg["bios"].get(c["name"])))["teams"].append(level)
+        print(f"{level}: {len(players)} players, {len(by_level[level])} games, coaches {[c['name'] for c in staff]}")
+    for c in cfg.get("assistants", []):
+        if c["name"] not in coaches:
+            coaches[c["name"]] = dict(c, bio=cfg["bios"].get(c["name"]))
+    roster["coaches"] = list(coaches.values())
+    roster["arbiter"] = cfg["arbiter"]
+    try:
+        mpssaa = mpssaa_results()
+    except Exception as e:  # keep building with Arbiter's scores alone
+        print("MPSSAA fetch failed:", e)
+        mpssaa = {}
+
+    games = {}
+    for level, gs in by_level.items():
+        for key, g in gs.items():
+            if g["date"] < sched["seasonStart"]:
+                continue
+            game = games.setdefault(key, dict(date=g["date"], opp=g["opp"], home=g["home"], league=g["league"], scrimmage=g["scrimmage"],
+                                              time={}, varsity=None, jv=None, canceled={}))
+            game["league"] |= g["league"]
+            game["scrimmage"] &= g["scrimmage"]
+            if g["time"]:
+                game["time"][level] = g["time"]
+            game[level] = g["result"]
+            if g["canceled"]:
+                game["canceled"][level] = True
+    for key, r in mpssaa.items():
+        if key in games and not games[key]["varsity"]:
+            games[key]["varsity"] = r
+        elif key not in games:
+            print("MPSSAA game not on Arbiter:", key)
+    for key, g in games.items():
+        m = mpssaa.get(key)
+        if m and g["varsity"] and (m["gf"], m["ga"]) != (g["varsity"]["gf"], g["varsity"]["ga"]):
+            print("Score mismatch Arbiter vs MPSSAA:", key, g["varsity"], m)
+        for k, v in sched.get("extras", {}).get(g["date"], {}).items():
+            if k in ("varsity", "jv"):  # hand-entered score ("0-1", Walkersville first) when Arbiter has none
+                if not g[k]:
+                    gf, ga = (int(x) for x in v.split("-"))
+                    g[k] = dict(res="W" if gf > ga else "L" if gf < ga else "T", gf=gf, ga=ga)
+            else:
+                g[k] = v
+        if g["opp"] not in sched["opponents"]:
+            print("No mascot/city for opponent:", g["opp"])
+    sched["games"] = sorted(games.values(), key=lambda g: g["date"])
+    for k in ("_comment", "extras", "seasonStart"):
+        sched.pop(k, None)
+    photos = json.loads((DATA / "photos.json").read_text())
+    data = dict(updated=datetime.datetime.now().strftime("%b %-d, %Y"), schedule=sched, roster=roster, photos=photos)
+    (ROOT / "site" / "data.js").write_text("window.DATA = " + json.dumps(data, separators=(",", ":")) + ";\n")
+    # Cache-bust asset links so browsers pick up new data/code after a rebuild
+    stamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    for page in (ROOT / "site").glob("*.html"):
+        page.write_text(re.sub(r'((?:href|src)="(?:styles\.css|data\.js|app\.js))(\?v=\d+)?"', rf'\1?v={stamp}"',
+                               page.read_text()))
+    for level in ("varsity", "jv"):
+        rec = [g[level]["res"] for g in sched["games"] if g[level] and not g["scrimmage"]]
+        print(f"{level} {rec.count('W')}-{rec.count('L')}-{rec.count('T')}", end="  ")
+    print(f"{len(photos)} photos -> site/data.js")
+
+
+if __name__ == "__main__":
+    main()

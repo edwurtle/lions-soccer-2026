@@ -1,0 +1,33 @@
+{
+  "_comment": [
+    "Players and coaches are pulled from ArbiterLive by scripts/build.py (team pages below).",
+    "assistants: coaches Arbiter doesn't list (it only has head coaches), added by hand per the program.",
+    "This file only adds what Arbiter doesn't have: coach bios, keyed by name (from the old lionssoccer.org staff page).",
+    "Jersey numbers link players to the photo catalog (photos are tagged by visible number)."
+  ],
+  "arbiter": {
+    "varsity": "https://www.arbiterlive.com/Teams/Schedule/7619115?activeEntityId=24622",
+    "jv": "https://www.arbiterlive.com/Teams/Schedule/7619114?activeEntityId=24622"
+  },
+  "bios": {
+    "Zach Hommey": "A 2014 Walkersville graduate, Coach Hommey was a four-year varsity player and two-time captain for the Lions, earning All-Conference, All-Area, All-State and Academic All-American honors. He went on to start four years at Lock Haven University, captaining the Bald Eagles as a senior, and was one of the first ten players signed by FC Frederick in its inaugural NPSL season. He joined the Lions staff in 2021.",
+    "Sylas Eaton": "Coach Eaton played four years at Walkersville on JV and varsity, captaining both, after growing up with GVAA and FC Frederick. He began coaching at GVAA right after graduating and joined the Lions staff in 2023.",
+    "Dakota Duncan": "A four-year Walkersville player (JV captain), Coach Duncan joined the staff in 2023. He served in the Army National Guard while attending Salisbury University and now teaches middle school history in Frederick County, where he runs an after-school soccer program."
+  },
+  "assistants": [
+    {
+      "name": "Dakota Duncan",
+      "role": "Assistant Coach",
+      "teams": [
+        "varsity"
+      ]
+    },
+    {
+      "name": "Quintin Daniluck",
+      "role": "Assistant Coach",
+      "teams": [
+        "jv"
+      ]
+    }
+  ]
+}
