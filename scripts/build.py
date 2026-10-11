@@ -46,6 +46,29 @@ def mpssaa_results():
     return out
 
 
+NFHS = "https://search-api.nfhsnetwork.com/search/events?school_key=da1a6a3363&size=100"  # Walkersville HS
+
+
+def nfhs_broadcasts(season_start):
+    """{(date, level): url} for boys soccer streams/replays on the NFHS Network."""
+    out, cursor = {}, None
+    for _ in range(20):
+        d = json.loads(curl(NFHS + (f"&cursor={cursor}" if cursor else "")))
+        for e in d["items"]:
+            if e.get("sport") != "Soccer" or (e.get("gender") or "").lower() != "boys" or e.get("is_deleted"):
+                continue
+            date = (e.get("local_start_time") or e["start_time"])[:10]
+            if date < season_start:
+                continue
+            level = "jv" if "junior" in (e.get("level") or "").lower() else "varsity"
+            out[(date, level)] = dict(url=e.get("site_url") or f"https://www.nfhsnetwork.com/events/{e['key']}",
+                                      status=e.get("status"))
+        cursor = d.get("cursor")
+        if not d["items"] or not cursor or min(e["start_time"] for e in d["items"])[:10] < season_start:
+            break
+    return out
+
+
 def cells(fragment):
     for tr in re.findall(r"<tr[^>]*>(.*?)</tr>", fragment, re.S):
         row = [" ".join(html.unescape(re.sub(r"<[^>]+>", " ", c)).split()) for c in re.findall(r"<td[^>]*>(.*?)</td>", tr, re.S)]
@@ -135,6 +158,14 @@ def main():
             game[level] = g["result"]
             if g["canceled"]:
                 game["canceled"][level] = True
+    try:
+        streams = nfhs_broadcasts(sched["seasonStart"])
+    except Exception as e:
+        print("NFHS fetch failed:", e)
+        streams = {}
+    for g in games.values():
+        g["watch"] = {lv: streams[(g["date"], lv)]["url"] for lv in ("varsity", "jv") if (g["date"], lv) in streams}
+    print(f"NFHS: {len(streams)} boys soccer broadcasts")
     for key, r in mpssaa.items():
         if key in games and not games[key]["varsity"]:
             games[key]["varsity"] = r
@@ -157,7 +188,20 @@ def main():
     for k in ("_comment", "extras", "seasonStart"):
         sched.pop(k, None)
     photos = json.loads((DATA / "photos.json").read_text())
-    data = dict(updated=datetime.datetime.now().strftime("%b %-d, %Y"), schedule=sched, roster=roster, photos=photos)
+    # Full Drive folder per game & level (for "see all in Drive" links); count distinct shots (JPG+NEF pairs once)
+    folders = json.loads((DATA / "photo_folders.json").read_text())
+    drive = json.loads((ROOT / "scripts" / "cache" / "drive.json").read_text())
+    drive_games = []
+    for name, info in folders.items():
+        if name.startswith("_") or "/" in name and not name.startswith("JV Pictures 2026/") or not info.get("folder"):
+            continue  # skip edit subfolders; their photos live in the parent game folder
+        shots = {f["name"].rsplit(".", 1)[0].lower() for f in drive.get(name, [])
+                 if f["name"].lower().endswith((".jpg", ".jpeg", ".png", ".nef"))}
+        key = info["date"] or "x-" + re.sub(r"[^a-z0-9]+", "-", info["opp"].lower()).strip("-")
+        drive_games.append(dict(key=key, level=info["level"], count=len(shots),
+                                url=f"https://drive.google.com/drive/folders/{info['folder']}"))
+    data = dict(updated=datetime.datetime.now().strftime("%b %-d, %Y"), schedule=sched, roster=roster, photos=photos,
+                driveGames=drive_games)
     (ROOT / "site" / "data.js").write_text("window.DATA = " + json.dumps(data, separators=(",", ":")) + ";\n")
     # Cache-bust asset links so browsers pick up new data/code after a rebuild
     stamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")

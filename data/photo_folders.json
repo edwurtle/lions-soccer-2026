@@ -1,24 +1,131 @@
 {
   "_comment": "Drive folder -> game. date links photos to schedule results; level is varsity or jv.",
-  ".": {"game": "Preseason", "opp": "Preseason", "level": "varsity", "date": null},
-  "Boonsboro VS Walkersville": {"opp": "Boonsboro", "level": "varsity", "date": "2026-10-08"},
-  "Brunswick VS Walkersville": {"opp": "Brunswick", "level": "varsity", "date": "2026-09-29", "crop_bottom": 0.09},
-  "Catoctin VS Walkersville": {"opp": "Catoctin", "level": "varsity", "date": "2026-10-06"},
-  "Clear Spring Vs Walkersville": {"opp": "Clear Spring", "level": "varsity", "date": "2026-09-17"},
-  "FSK VS Walkersville": {"opp": "Francis Scott Key", "level": "varsity", "date": "2026-09-15"},
-  "JV Pictures 2026": {"opp": "JV Season", "level": "jv", "date": null},
-  "JV Pictures 2026/Brunswick Vs Walkersville JV": {"opp": "Brunswick", "level": "jv", "date": "2026-09-29"},
-  "JV Pictures 2026/Catoctin VS Walkersville": {"opp": "Catoctin", "level": "jv", "date": "2026-10-06"},
-  "JV Pictures 2026/Clear Spring Vs Walkersville": {"opp": "Clear Spring", "level": "jv", "date": "2026-09-17"},
-  "JV Pictures 2026/Linganore VS Walkersville JV": {"opp": "Linganore", "level": "jv", "date": "2026-09-10"},
-  "Liberty VS Walkersville HS": {"opp": "Liberty", "level": "varsity", "date": "2026-09-08"},
-  "Linganore VS Walkersville": {"opp": "Linganore", "level": "varsity", "date": "2026-09-10"},
-  "Middletown VS Walkersville": {"opp": "Middletown", "level": "varsity", "date": "2026-09-22"},
-  "Middletown VS Walkersville/Lightroom Edits": {"opp": "Middletown", "level": "varsity", "date": "2026-09-22"},
-  "Middletown VS Walkersville/Photoshop Edits": {"opp": "Middletown", "level": "varsity", "date": "2026-09-22"},
-  "Smithsburg Vs Walkersville": {"opp": "Smithsburg", "level": "varsity", "date": "2026-09-24"},
-  "Smithsburg Vs Walkersville/Photoshopped": {"opp": "Smithsburg", "level": "varsity", "date": "2026-09-24"},
-  "St. John VS Walkersville": {"opp": "St. John's Catholic Prep", "level": "varsity", "date": "2026-09-05"},
-  "Walkersville VS Damascus": {"opp": "Damascus", "level": "varsity", "date": "2026-09-01"},
-  "Walkersville VS North Hagerstown": {"opp": "North Hagerstown", "level": "varsity", "date": "2026-09-03"}
+  ".": {
+    "game": "Preseason",
+    "opp": "Preseason",
+    "level": "varsity",
+    "date": null,
+    "folder": "1RWe67JBrUTjv5ve0W7tFT5_MtEzfyi8j"
+  },
+  "Boonsboro VS Walkersville": {
+    "opp": "Boonsboro",
+    "level": "varsity",
+    "date": "2026-10-08",
+    "folder": "1djpPN5jIPR0FD5rbyoGbkWnVqk3YXQMi"
+  },
+  "Brunswick VS Walkersville": {
+    "opp": "Brunswick",
+    "level": "varsity",
+    "date": "2026-09-29",
+    "crop_bottom": 0.09,
+    "folder": "1o6yGk1KULOUZscnrG_6CQ4-oFjLuPpbZ"
+  },
+  "Catoctin VS Walkersville": {
+    "opp": "Catoctin",
+    "level": "varsity",
+    "date": "2026-10-06",
+    "folder": "1NrK-oO2suylga_wJnHOycBBIpDPDijtM"
+  },
+  "Clear Spring Vs Walkersville": {
+    "opp": "Clear Spring",
+    "level": "varsity",
+    "date": "2026-09-17",
+    "folder": "1KUbzCLptbHBr5zQNLwIv_rMVeOncWWsV"
+  },
+  "FSK VS Walkersville": {
+    "opp": "Francis Scott Key",
+    "level": "varsity",
+    "date": "2026-09-15",
+    "folder": "1MLXOlqVmDe6NDjzGpjHNciLKapkI_-Xz"
+  },
+  "JV Pictures 2026": {
+    "opp": "JV Season",
+    "level": "jv",
+    "date": null,
+    "folder": "1OPRrvgKRU-DukkEOg6H2qL6D9CJX7GyH"
+  },
+  "JV Pictures 2026/Brunswick Vs Walkersville JV": {
+    "opp": "Brunswick",
+    "level": "jv",
+    "date": "2026-09-29",
+    "folder": "1jXNSM0TKuER_r1w_8x0iodcJ4-R6xBpc"
+  },
+  "JV Pictures 2026/Catoctin VS Walkersville": {
+    "opp": "Catoctin",
+    "level": "jv",
+    "date": "2026-10-06",
+    "folder": "1b4wgrDu2HA0eE560yvgjX6m8WKRNLRYM"
+  },
+  "JV Pictures 2026/Clear Spring Vs Walkersville": {
+    "opp": "Clear Spring",
+    "level": "jv",
+    "date": "2026-09-17",
+    "folder": "1fhLFaqICkZ3KDmYUJnj6xB77PHfLUqOG"
+  },
+  "JV Pictures 2026/Linganore VS Walkersville JV": {
+    "opp": "Linganore",
+    "level": "jv",
+    "date": "2026-09-10",
+    "folder": "1d48YgLF-qbIsq9Pa5RvI2fn4aH0407b8"
+  },
+  "Liberty VS Walkersville HS": {
+    "opp": "Liberty",
+    "level": "varsity",
+    "date": "2026-09-08",
+    "folder": "1jYTdZklRmorQhcOJFWMOeo1Cw08q5aap"
+  },
+  "Linganore VS Walkersville": {
+    "opp": "Linganore",
+    "level": "varsity",
+    "date": "2026-09-10",
+    "folder": "1mq19HktZ2g2-V8D8Nvt1O2GLbzR6ei1n"
+  },
+  "Middletown VS Walkersville": {
+    "opp": "Middletown",
+    "level": "varsity",
+    "date": "2026-09-22",
+    "folder": "1MJoUBeTyQQHW0VMhn7fPK22MlqSweS6H"
+  },
+  "Middletown VS Walkersville/Lightroom Edits": {
+    "opp": "Middletown",
+    "level": "varsity",
+    "date": "2026-09-22",
+    "folder": "1n1swztF2KkEPfGEOP1AJTY-qIs1IdADp"
+  },
+  "Middletown VS Walkersville/Photoshop Edits": {
+    "opp": "Middletown",
+    "level": "varsity",
+    "date": "2026-09-22",
+    "folder": "13Lk5RId6rZmFfp30J4Hwljs57wWrBORL"
+  },
+  "Smithsburg Vs Walkersville": {
+    "opp": "Smithsburg",
+    "level": "varsity",
+    "date": "2026-09-24",
+    "folder": "1SaIqdzQIdts5yx-6ze08819auAzR2ju8"
+  },
+  "Smithsburg Vs Walkersville/Photoshopped": {
+    "opp": "Smithsburg",
+    "level": "varsity",
+    "date": "2026-09-24",
+    "folder": "1EWm8TNgHvHUjC_joxi9GySyQO9jH7jQD"
+  },
+  "St. John VS Walkersville": {
+    "opp": "St. John's Catholic Prep",
+    "level": "varsity",
+    "date": "2026-09-05",
+    "folder": "1W31tq_hsHhH3AG7Fvhif6vCUNXbXTvEv"
+  },
+  "Walkersville VS Damascus": {
+    "opp": "Damascus",
+    "level": "varsity",
+    "date": "2026-09-01",
+    "folder": "1kpgrqiD9clEkNRy39SW8h4IbbUE64sVL"
+  },
+  "Walkersville VS North Hagerstown": {
+    "opp": "North Hagerstown",
+    "level": "varsity",
+    "date": "2026-09-03",
+    "folder": "1PBy5MBCYXqpVETQF2V44PAX_oubL7Ndo"
+  }
 }

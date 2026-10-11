@@ -144,7 +144,7 @@ section.block.alt { background: #fff; }
 .game .opp .vs { font: 600 12px var(--body); color: var(--muted); margin-right: 4px; text-transform: lowercase; }
 .game .sub { font-size: 13px; color: var(--muted); margin-top: 3px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
 .game .sub a { color: inherit; }
-.game .right { display: grid; grid-template-columns: 110px 112px; align-items: center; gap: 12px; }
+.game .right { display: grid; grid-template-columns: 96px 110px 112px; align-items: center; gap: 12px; }
 .game .right > :first-child { justify-self: end; }
 .game .right > :last-child { justify-self: start; }
 .res { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
@@ -263,3 +263,9 @@ footer { background: var(--navy); color: #9aa3c0; padding: 36px 0; font-size: 14
 footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
 footer a { color: #d7dcef; }
 footer b { color: #fff; }
+
+.watch-link { color: #c0392b; }
+.drive-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 6px; }
+.replays { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.replays a { color: #fff; background: rgba(255, 255, 255, .14); border-radius: 8px; padding: 8px 12px; font-size: 13px; font-weight: 700; text-decoration: none; }
+.replays a:hover { background: rgba(255, 255, 255, .24); }

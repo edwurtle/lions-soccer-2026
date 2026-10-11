@@ -169,6 +169,8 @@
             <div class="lvl"><span>${LABEL[l]}</span><b>${last[l].gf}<em>–</em>${last[l].ga}</b><i class="${last[l].res}">${{ W: "Win", L: "Loss", T: "Tie" }[last[l].res]}</i></div>`
             : `<div class="lvl none"><span>${LABEL[l]}</span><b>—</b><i>${last.canceled[l] ? "Canceled" : "No score"}</i></div>`).join("")}
           </div>
+          ${LEVELS.some(l => last.watch && last.watch[l]) ? `<div class="replays">${LEVELS.filter(l => last.watch[l]).map(l =>
+            `<a href="${last.watch[l]}" target="_blank" rel="noopener">▶ Watch ${LABEL[l]} replay</a>`).join("")}</div>` : ""}
           <div class="meta">${esc(venue(last))}<br>${pics.length} photo${pics.length === 1 ? "" : "s"} from this game</div>
         </div>
         <div class="mosaic">${shown.map((p, i) => `
@@ -206,6 +208,7 @@
               <a href="${mapUrl(g)}" target="_blank" rel="noopener">${esc(venue(g))}</a>
               ${g.note ? `<span>· ${esc(g.note)}</span>` : ""}</div></div>
           <div class="right">
+            ${g.watch && g.watch[level] ? `<a class="photos-link watch-link" href="${g.watch[level]}" target="_blank" rel="noopener">▶ ${past ? "Replay" : "Watch live"}</a>` : "<span></span>"}
             ${n ? `<a class="photos-link" href="photos.html#game=${g.date}&level=${level}">${ICON.cam}${n} photo${n === 1 ? "" : "s"}</a>` : "<span></span>"}
             ${g.canceled[level] ? `<span class="res none">Canceled</span>` : past ? resHtml(result(g, level), true, true) : t ? `<a class="btn gold sm" href="${t}" target="_blank" rel="noopener">${ICON.ticket}Tickets</a>` : `<span class="res none">${g.home ? "" : "Away tickets at gate"}</span>`}
           </div></div>`;
@@ -395,7 +398,9 @@
             return `<button data-i="${flat.length - 1}" aria-label="Open photo"><span class="ph"><img src="${p.thumb}" alt="" loading="lazy"></span>
               ${p.level === "jv" ? `<span class="tags"><span>JV</span></span>` : ""}
               <span class="cap${p.numbers.length ? "" : " empty"}" title="${p.numbers.length ? who(p).replace(/"/g, "&quot;") : ""}">${p.numbers.length ? who(p) : (p.caption ? esc(p.caption) : "&nbsp;")}</span></button>`;
-          }).join("")}</div>`;
+          }).join("")}</div>
+          <div class="drive-links">${(D.driveGames || []).filter(d => d.key === g.key && (!state.level || d.level === state.level)).map(d =>
+            `<a class="btn ghost sm" href="${d.url}" target="_blank" rel="noopener">See all ${d.count} ${d.level === "jv" ? "JV" : "Varsity"} photos from this game in Google Drive →</a>`).join("")}</div>`;
         return html;
       }).join("");
       $("#catalog").onclick = e => { const b = e.target.closest("button[data-i]"); if (b) openLb(flat, +b.dataset.i); };
