@@ -4,10 +4,53 @@
     "assistants: coaches Arbiter doesn't list (it only has head coaches), added by hand per the program.",
     "This file only adds what Arbiter doesn't have: coach bios, keyed by name (from the old lionssoccer.org staff page).",
     "Jersey numbers link players to the photo catalog (photos are tagged by visible number).",
-    "numbers: jersey numbers Arbiter has wrong, by level then player name."
+    "players: the rosters, copied from Arbiter on Oct 12 and hand-corrected (Arbiter had Avila/Fyock numbers swapped and Namasse's grade wrong). The nightly refresh doesn't touch them; edit here."
   ],
-  "numbers": {
-    "varsity": {"Parker Fyock": 15, "William Avila": 8}
+  "players": {
+    "varsity": [
+      {"num": 1, "name": "Brady Barnes", "grade": "Senior", "pos": null, "height": "6'2\""},
+      {"num": 2, "name": "Johnathan Boards", "grade": "Senior", "pos": null, "height": null},
+      {"num": 3, "name": "Iker Lopez", "grade": "Junior", "pos": null, "height": "5'7\""},
+      {"num": 4, "name": "Liam Christopher Canaria", "grade": "Junior", "pos": null, "height": null},
+      {"num": 5, "name": "Jorge Calderon", "grade": "Junior", "pos": null, "height": "5'6\""},
+      {"num": 6, "name": "Kenzo Atadika", "grade": "Junior", "pos": null, "height": "5'3\""},
+      {"num": 7, "name": "Eli Glickman", "grade": "Senior", "pos": null, "height": "5'10\""},
+      {"num": 8, "name": "William Avila", "grade": "Junior", "pos": null, "height": "5'10\""},
+      {"num": 9, "name": "Yeishua Mendez", "grade": "Sophomore", "pos": null, "height": "5'8\""},
+      {"num": 10, "name": "Joshua Bolanos", "grade": "Junior", "pos": null, "height": "5'9\""},
+      {"num": 11, "name": "Christemmanuel Adueni", "grade": "Senior", "pos": null, "height": "5'11\""},
+      {"num": 12, "name": "Zackary Bratt", "grade": "Senior", "pos": null, "height": "5'8\""},
+      {"num": 13, "name": "Titus Lieu", "grade": "Freshman", "pos": null, "height": null},
+      {"num": 14, "name": "Cash Moots", "grade": "Senior", "pos": null, "height": "5'11\""},
+      {"num": 15, "name": "Parker Fyock", "grade": "Junior", "pos": null, "height": "6'0\""},
+      {"num": 17, "name": "Jensen Leydig", "grade": "Junior", "pos": null, "height": "5'8\""},
+      {"num": 18, "name": "Steven Rosales", "grade": "Senior", "pos": null, "height": "5'9\""},
+      {"num": 19, "name": "Gabriel Beltran", "grade": "Senior", "pos": null, "height": "6'3\""},
+      {"num": 21, "name": "Jalontae Williams", "grade": "Senior", "pos": null, "height": "5'11\""},
+      {"num": 23, "name": "Hudson Beaver", "grade": "Freshman", "pos": null, "height": "5'7\""}
+    ],
+    "jv": [
+      {"num": 1, "name": "Kai Work", "grade": "Freshman", "pos": null, "height": null},
+      {"num": 2, "name": "Diego Diaz", "grade": "Freshman", "pos": null, "height": "5'5\""},
+      {"num": 3, "name": "Gavin Mullinix", "grade": "Sophomore", "pos": null, "height": "5'10\""},
+      {"num": 4, "name": "Andrew Baber", "grade": "Sophomore", "pos": null, "height": "6'4\""},
+      {"num": 5, "name": "Wilmer Lopez-Lemus", "grade": "Sophomore", "pos": null, "height": "5'4\""},
+      {"num": 6, "name": "Kwyn Wright", "grade": "Sophomore", "pos": null, "height": null},
+      {"num": 7, "name": "Jaylen Arevalo Monatno", "grade": "Sophomore", "pos": null, "height": null},
+      {"num": 8, "name": "Tyler Daniluck", "grade": "Sophomore", "pos": null, "height": "5'9\""},
+      {"num": 9, "name": "David Thalhamer Jr", "grade": "Sophomore", "pos": null, "height": "5'6\""},
+      {"num": 10, "name": "Alexis Arriaza", "grade": "Freshman", "pos": null, "height": "5'7\""},
+      {"num": 11, "name": "Tucker Wildeman", "grade": "Sophomore", "pos": null, "height": "5'8\""},
+      {"num": 12, "name": "Christopher Moreno", "grade": "Sophomore", "pos": null, "height": null},
+      {"num": 13, "name": "Aidan Defibaugh", "grade": "Freshman", "pos": null, "height": "5'10\""},
+      {"num": 14, "name": "George Ross", "grade": "Freshman", "pos": null, "height": null},
+      {"num": 16, "name": "David Alan Namasse deugoue", "grade": "Freshman", "pos": null, "height": null},
+      {"num": 18, "name": "Yeabekale Adane", "grade": "Freshman", "pos": null, "height": "5'11\""},
+      {"num": 20, "name": "Gannon McCoy", "grade": "Freshman", "pos": null, "height": null},
+      {"num": 22, "name": "Raul Garcia", "grade": "Sophomore", "pos": null, "height": "5'6\""},
+      {"num": 23, "name": "Jeongmin Sung", "grade": "Freshman", "pos": null, "height": "5'9\""},
+      {"num": 25, "name": "Chase Barnes", "grade": "Sophomore", "pos": null, "height": "6'0\""}
+    ]
   },
   "arbiter": {
     "varsity": "https://www.arbiterlive.com/Teams/Schedule/7619115?activeEntityId=24622",

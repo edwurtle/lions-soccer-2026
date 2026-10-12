@@ -128,10 +128,7 @@ def main():
         if 'id="tabTeamRoster"' not in page:  # Arbiter down or changed: keep the last good site/data.js
             raise SystemExit(f"ArbiterLive {level} page didn't load; site/data.js left unchanged")
         players, staff = arbiter_team(page)
-        fix = cfg.get("numbers", {}).get(level, {})
-        for p in players:
-            p["num"] = fix.get(p["name"], p["num"])
-        players.sort(key=lambda p: p["num"])
+        players = cfg["players"][level]  # hand-maintained; Arbiter's roster has errors
         roster[level] = players
         by_level[level] = arbiter_games(page, year)
         for c in staff:
