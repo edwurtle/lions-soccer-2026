@@ -2,6 +2,7 @@
   "_comment": [
     "Games, times and JV/varsity results come from ArbiterLive (see roster.json for the team pages); scripts/build.py merges them.",
     "MPSSAA fills in any varsity league score Arbiter is missing. Games before seasonStart (August preseason) are left off; later scrimmages show but don't count in records.",
+    "added: games Arbiter doesn't list at all (e.g. the Aug 29 Oakdale scrimmage), kept even before seasonStart.",
     "This file adds what Arbiter doesn't have: GoFan ticket links, notes and missing scores (\"jv\": \"0-1\", Walkersville first), keyed by game date, plus opponent mascots."
   ],
   "season": "2026",
@@ -31,6 +32,9 @@
     "Manchester Valley": {"mascot": "Mavericks", "city": "Manchester"},
     "Oakdale": {"mascot": "Bears", "city": "Ijamsville"}
   },
+  "added": [
+    {"date": "2026-08-29", "opp": "Oakdale", "home": true, "league": false, "scrimmage": true}
+  ],
   "extras": {
     "2026-09-24": {"jv": "0-1"},
     "2026-10-06": {"note": "Youth Night"},

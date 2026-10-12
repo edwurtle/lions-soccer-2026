@@ -32,6 +32,7 @@
 
   const photos = D.photos;
   const gameKey = p => p.date ? p.date : "x-" + p.opp.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  const gameOn = date => date && S.games.find(x => x.date === date);
   const photosFor = (date, level) => photos.filter(p => p.date === date && (!level || p.level === level));
   const sortPhotos = list => [...list].sort((a, b) => (b.featured - a.featured));
   const playerByNum = (level, n) => (D.roster[level] || []).find(p => p.num === n);
@@ -70,7 +71,7 @@
   function closeLb() { lb.classList.remove("open"); lb.setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; }
   function drawLb() {
     const p = lbList[lbIdx];
-    const g = p.date && S.games.find(x => x.date === p.date);
+    const g = gameOn(p.date);
     const who = p.numbers.map(n => { const pl = playerByNum(p.level, n); return pl ? `#${n} ${pl.name}` : `#${n}`; }).join(", ");
     lb.innerHTML = `
       <div class="lb-top">
@@ -210,7 +211,7 @@
           <div class="right">
             ${g.watch && g.watch[level] ? `<a class="photos-link watch-link" href="${g.watch[level]}" target="_blank" rel="noopener">▶ ${past ? "Replay" : "Watch live"}</a>` : "<span></span>"}
             ${n ? `<a class="photos-link" href="photos.html#game=${g.date}&level=${level}">${ICON.cam}${n} photo${n === 1 ? "" : "s"}</a>` : "<span></span>"}
-            ${g.canceled[level] ? `<span class="res none">Canceled</span>` : past ? resHtml(result(g, level), true, true) : t ? `<a class="btn gold sm" href="${t}" target="_blank" rel="noopener">${ICON.ticket}Tickets</a>` : `<span class="res none">${g.home ? "" : "Away tickets at gate"}</span>`}
+            ${g.canceled[level] ? `<span class="res none">Canceled</span>` : past ? (g.scrimmage ? `<span class="res none"></span>` : resHtml(result(g, level), true, true)) : t ? `<a class="btn gold sm" href="${t}" target="_blank" rel="noopener">${ICON.ticket}Tickets</a>` : `<span class="res none">${g.home ? "" : "Away tickets at gate"}</span>`}
           </div></div>`;
       }).join("");
     }
@@ -326,7 +327,7 @@
     const games = new Map();
     photos.forEach(p => { const k = gameKey(p); if (!games.has(k)) games.set(k, { key: k, opp: p.opp, date: p.date }); });
     const gameList = [...games.values()].sort((a, b) => (b.date || "0").localeCompare(a.date || "0"));
-    const gameLabel = g => g.date ? `${MON[day(g.date).getMonth()]} ${day(g.date).getDate()} · ${vsAt(S.games.find(x => x.date === g.date) || {})} ${g.opp}` : `Preseason · vs ${g.opp} scrimmage`;
+    const gameLabel = g => g.date ? `${MON[day(g.date).getMonth()]} ${day(g.date).getDate()} · ${vsAt(gameOn(g.date))} ${g.opp}` : g.opp;
     const gameDD = dropdown($("#game"), { placeholder: "All games", onChange: v => { state.game = v; writeHash(); draw(); } });
     gameDD.setGroups([{ items: gameList.map(g => ({ value: g.key, label: gameLabel(g) })) }]);
     const playerDD = dropdown($("#player"), { placeholder: "All players", search: "Type a name or number…", onChange: v => {
@@ -335,7 +336,8 @@
       writeHash(); draw();
     } });
     $("#ph-sub").innerHTML = `A selection of ${photos.length} photos from ${gameList.length} games, drawn from the season's full collection.
-      Tap any photo to view full size or download. <a href="${S.links.drive}" target="_blank" rel="noopener">See all photos in Google Drive →</a>`;
+      Tap any photo to view full size or download. <a href="${S.links.drive}" target="_blank" rel="noopener">See all photos in Google Drive →</a>
+      <small class="tag-note">Player tags are matched from jersey numbers and may not always be accurate.</small>`;
 
     const state = { q: "", level: "", game: "", num: null };
     const readHash = () => {
@@ -353,9 +355,9 @@
     };
 
     const hay = p => {
-      const g = p.date && S.games.find(x => x.date === p.date);
+      const g = gameOn(p.date);
       const names = p.numbers.map(n => playerByNum(p.level, n)?.name || "").join(" ");
-      return [p.opp, p.caption, p.level === "jv" ? "jv junior varsity" : "varsity", g ? (g.home ? "home" : "away") : "",
+      return [p.opp, p.caption, p.level === "jv" ? "jv junior varsity" : "varsity", g ? (g.home ? "home" : "away") : "", g && g.scrimmage ? "scrimmage" : "",
         p.date ? `${MON[day(p.date).getMonth()]} ${["january","february","march","april","may","june","july","august","september","october","november","december"][day(p.date).getMonth()]}` : "",
         p.numbers.map(n => `#${n}`).join(" "), names, S.opponents[p.opp]?.mascot].join(" ").toLowerCase();
     };
@@ -389,10 +391,10 @@
       $("#catalog").innerHTML = gameList.map(g => {
         const ps = sortPhotos(list.filter(p => gameKey(p) === g.key));
         if (!ps.length) return "";
-        const sg = g.date && S.games.find(x => x.date === g.date);
+        const sg = gameOn(g.date);
         const levels = [...new Set(ps.map(p => p.level))];
-        const html = `<div class="group"><h2>${sg ? `${vsAt(sg)} ` : g.date ? "" : "vs "}${esc(g.opp)}</h2>
-          <span class="meta">${g.date ? fmtDate(g.date, true) : "Preseason scrimmage"}${sg ? LEVELS.filter(l => sg[l]).map(l => ` · ${LABEL[l]} ${sg[l].res} ${sg[l].gf}–${sg[l].ga}`).join("") : ""} · ${ps.length} photo${ps.length === 1 ? "" : "s"}${levels.length === 1 ? ` · ${levels[0] === "jv" ? "JV" : "Varsity"}` : ""}</span></div>
+        const html = `<div class="group"><h2>${sg ? `${vsAt(sg)} ` : ""}${esc(g.opp)}</h2>
+          <span class="meta">${g.date ? fmtDate(g.date, true) : "Non-league / preseason"}${sg && sg.scrimmage ? " · Scrimmage" : ""}${sg ? LEVELS.filter(l => sg[l]).map(l => ` · ${LABEL[l]} ${sg[l].res} ${sg[l].gf}–${sg[l].ga}`).join("") : ""} · ${ps.length} photo${ps.length === 1 ? "" : "s"}${levels.length === 1 ? ` · ${levels[0] === "jv" ? "JV" : "Varsity"}` : ""}</span></div>
           <div class="grid">${ps.map(p => {
             flat.push(p);
             return `<button data-i="${flat.length - 1}" aria-label="Open photo"><span class="ph"><img src="${p.thumb}" alt="" loading="lazy"></span>

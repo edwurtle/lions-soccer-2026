@@ -158,6 +158,8 @@ def main():
             game[level] = g["result"]
             if g["canceled"]:
                 game["canceled"][level] = True
+    for g in sched.get("added", []):  # hand-entered games Arbiter doesn't list
+        games.setdefault((g["date"], g["opp"]), dict(g, time={}, varsity=None, jv=None, canceled={}))
     try:
         streams = nfhs_broadcasts(sched["seasonStart"])
     except Exception as e:
@@ -182,10 +184,12 @@ def main():
                     g[k] = dict(res="W" if gf > ga else "L" if gf < ga else "T", gf=gf, ga=ga)
             else:
                 g[k] = v
+        if g["scrimmage"]:  # scrimmage scores aren't shown on the site
+            g["varsity"] = g["jv"] = None
         if g["opp"] not in sched["opponents"]:
             print("No mascot/city for opponent:", g["opp"])
     sched["games"] = sorted(games.values(), key=lambda g: g["date"])
-    for k in ("_comment", "extras", "seasonStart"):
+    for k in ("_comment", "added", "extras", "seasonStart"):
         sched.pop(k, None)
     photos = json.loads((DATA / "photos.json").read_text())
     # Full Drive folder per game & level (for "see all in Drive" links); count distinct shots (JPG+NEF pairs once)

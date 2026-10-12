@@ -1,9 +1,9 @@
 {
-  "_comment": "Drive folder -> game. date links photos to schedule results (null = preseason scrimmage); level is varsity or jv. split maps loose files in a mixed folder to games by DSC number (upto = last number).",
+  "_comment": "Drive folder -> game. date links photos to schedule results (null = not tied to a game); level is varsity or jv. split maps loose files in a mixed folder to games by DSC number (upto = last number).",
   ".": {
     "opp": "Oakdale",
     "level": "varsity",
-    "date": null,
+    "date": "2026-08-29",
     "folder": "1RWe67JBrUTjv5ve0W7tFT5_MtEzfyi8j"
   },
   "Boonsboro VS Walkersville": {
@@ -41,7 +41,7 @@
     "level": "jv",
     "folder": "1OPRrvgKRU-DukkEOg6H2qL6D9CJX7GyH",
     "split": [
-      {"upto": 28, "opp": "Oakdale", "date": null},
+      {"upto": 28, "opp": "Oakdale", "date": "2026-08-29"},
       {"upto": 409, "opp": "North Hagerstown", "date": "2026-09-03"},
       {"upto": 9999, "opp": "Liberty", "date": "2026-09-08"}
     ]
