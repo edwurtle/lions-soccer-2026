@@ -326,7 +326,7 @@
     const games = new Map();
     photos.forEach(p => { const k = gameKey(p); if (!games.has(k)) games.set(k, { key: k, opp: p.opp, date: p.date }); });
     const gameList = [...games.values()].sort((a, b) => (b.date || "0").localeCompare(a.date || "0"));
-    const gameLabel = g => g.date ? `${MON[day(g.date).getMonth()]} ${day(g.date).getDate()} · ${vsAt(S.games.find(x => x.date === g.date) || {})} ${g.opp}` : g.opp;
+    const gameLabel = g => g.date ? `${MON[day(g.date).getMonth()]} ${day(g.date).getDate()} · ${vsAt(S.games.find(x => x.date === g.date) || {})} ${g.opp}` : `Preseason · vs ${g.opp} scrimmage`;
     const gameDD = dropdown($("#game"), { placeholder: "All games", onChange: v => { state.game = v; writeHash(); draw(); } });
     gameDD.setGroups([{ items: gameList.map(g => ({ value: g.key, label: gameLabel(g) })) }]);
     const playerDD = dropdown($("#player"), { placeholder: "All players", search: "Type a name or number…", onChange: v => {
@@ -391,8 +391,8 @@
         if (!ps.length) return "";
         const sg = g.date && S.games.find(x => x.date === g.date);
         const levels = [...new Set(ps.map(p => p.level))];
-        const html = `<div class="group"><h2>${sg ? `${vsAt(sg)} ` : ""}${esc(g.opp)}</h2>
-          <span class="meta">${g.date ? fmtDate(g.date, true) : "Non-league / preseason"}${sg ? LEVELS.filter(l => sg[l]).map(l => ` · ${LABEL[l]} ${sg[l].res} ${sg[l].gf}–${sg[l].ga}`).join("") : ""} · ${ps.length} photo${ps.length === 1 ? "" : "s"}${levels.length === 1 ? ` · ${levels[0] === "jv" ? "JV" : "Varsity"}` : ""}</span></div>
+        const html = `<div class="group"><h2>${sg ? `${vsAt(sg)} ` : g.date ? "" : "vs "}${esc(g.opp)}</h2>
+          <span class="meta">${g.date ? fmtDate(g.date, true) : "Preseason scrimmage"}${sg ? LEVELS.filter(l => sg[l]).map(l => ` · ${LABEL[l]} ${sg[l].res} ${sg[l].gf}–${sg[l].ga}`).join("") : ""} · ${ps.length} photo${ps.length === 1 ? "" : "s"}${levels.length === 1 ? ` · ${levels[0] === "jv" ? "JV" : "Varsity"}` : ""}</span></div>
           <div class="grid">${ps.map(p => {
             flat.push(p);
             return `<button data-i="${flat.length - 1}" aria-label="Open photo"><span class="ph"><img src="${p.thumb}" alt="" loading="lazy"></span>

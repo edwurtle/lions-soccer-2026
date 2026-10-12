@@ -28,7 +28,8 @@
     "Boonsboro": {"mascot": "Warriors", "city": "Boonsboro"},
     "Williamsport": {"mascot": "Wildcats", "city": "Williamsport"},
     "South Carroll": {"mascot": "Cavaliers", "city": "Sykesville"},
-    "Manchester Valley": {"mascot": "Mavericks", "city": "Manchester"}
+    "Manchester Valley": {"mascot": "Mavericks", "city": "Manchester"},
+    "Oakdale": {"mascot": "Bears", "city": "Ijamsville"}
   },
   "extras": {
     "2026-09-24": {"jv": "0-1"},

@@ -41,6 +41,9 @@ def main():
         tag, nums, caption, featured = (line.split("|") + ["", "", ""])[:4]
         c = cand[tag]
         info = folders[c["folder"]]
+        if "split" in info:  # mixed folder: pick the game by file number
+            num = int(re.search(r"\d+", c["name"]).group())
+            info = {**info, **next(s for s in info["split"] if num <= s["upto"])}
         pid = f"{info['level']}-{slug(info['opp'])}-{c['name'].rsplit('.', 1)[0].lower()}"
         full, thumb = OUT / "full" / f"{pid}.webp", OUT / "thumb" / f"{pid}.webp"
         if not full.exists():

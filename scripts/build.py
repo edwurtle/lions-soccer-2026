@@ -195,6 +195,8 @@ def main():
     for name, info in folders.items():
         if name.startswith("_") or "/" in name and not name.startswith("JV Pictures 2026/") or not info.get("folder"):
             continue  # skip edit subfolders; their photos live in the parent game folder
+        if "split" in info:
+            continue  # mixed folder spanning several games: no single game to link it to
         shots = {f["name"].rsplit(".", 1)[0].lower() for f in drive.get(name, [])
                  if f["name"].lower().endswith((".jpg", ".jpeg", ".png", ".nef"))}
         key = info["date"] or "x-" + re.sub(r"[^a-z0-9]+", "-", info["opp"].lower()).strip("-")

@@ -1,8 +1,7 @@
 {
-  "_comment": "Drive folder -> game. date links photos to schedule results; level is varsity or jv.",
+  "_comment": "Drive folder -> game. date links photos to schedule results (null = preseason scrimmage); level is varsity or jv. split maps loose files in a mixed folder to games by DSC number (upto = last number).",
   ".": {
-    "game": "Preseason",
-    "opp": "Preseason",
+    "opp": "Oakdale",
     "level": "varsity",
     "date": null,
     "folder": "1RWe67JBrUTjv5ve0W7tFT5_MtEzfyi8j"
@@ -39,10 +38,13 @@
     "folder": "1MLXOlqVmDe6NDjzGpjHNciLKapkI_-Xz"
   },
   "JV Pictures 2026": {
-    "opp": "JV Season",
     "level": "jv",
-    "date": null,
-    "folder": "1OPRrvgKRU-DukkEOg6H2qL6D9CJX7GyH"
+    "folder": "1OPRrvgKRU-DukkEOg6H2qL6D9CJX7GyH",
+    "split": [
+      {"upto": 28, "opp": "Oakdale", "date": null},
+      {"upto": 409, "opp": "North Hagerstown", "date": "2026-09-03"},
+      {"upto": 9999, "opp": "Liberty", "date": "2026-09-08"}
+    ]
   },
   "JV Pictures 2026/Brunswick Vs Walkersville JV": {
     "opp": "Brunswick",
