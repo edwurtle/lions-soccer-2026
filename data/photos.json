@@ -3163,39 +3163,6 @@
   "drive": "https://drive.google.com/file/d/1gbKwFEMGHYmaVsacCY86y2OHzaV2p1E2/view"
  },
  {
-  "id": "varsity-north-hagerstown-dsc_0401",
-  "full": "photos/full/varsity-north-hagerstown-dsc_0401.webp",
-  "thumb": "photos/thumb/varsity-north-hagerstown-dsc_0401.webp",
-  "w": 1600,
-  "h": 1063,
-  "level": "varsity",
-  "opp": "North Hagerstown",
-  "date": "2026-09-03",
-  "numbers": [
-   17,
-   11
-  ],
-  "caption": "Bench",
-  "featured": false,
-  "drive": "https://drive.google.com/file/d/1HAyecurlDPa80SHavc1VaY7WuMY-KWq-/view"
- },
- {
-  "id": "varsity-north-hagerstown-dsc_0402",
-  "full": "photos/full/varsity-north-hagerstown-dsc_0402.webp",
-  "thumb": "photos/thumb/varsity-north-hagerstown-dsc_0402.webp",
-  "w": 1600,
-  "h": 1063,
-  "level": "varsity",
-  "opp": "North Hagerstown",
-  "date": "2026-09-03",
-  "numbers": [
-   17
-  ],
-  "caption": "Bench",
-  "featured": false,
-  "drive": "https://drive.google.com/file/d/18z4FglSyB1YHq80aX-AIVWEw9cGduXnV/view"
- },
- {
   "id": "varsity-north-hagerstown-dsc_0408",
   "full": "photos/full/varsity-north-hagerstown-dsc_0408.webp",
   "thumb": "photos/thumb/varsity-north-hagerstown-dsc_0408.webp",
@@ -10105,5 +10072,38 @@
   "caption": null,
   "featured": false,
   "drive": "https://drive.google.com/file/d/17gZd8Tfa3X0lL7Jzd1ej6JQz_P6lkGuY/view"
+ },
+ {
+  "id": "jv-north-hagerstown-dsc_0401",
+  "full": "photos/full/jv-north-hagerstown-dsc_0401.webp",
+  "thumb": "photos/thumb/jv-north-hagerstown-dsc_0401.webp",
+  "w": 1600,
+  "h": 1063,
+  "level": "jv",
+  "opp": "North Hagerstown",
+  "date": "2026-09-03",
+  "numbers": [
+   17,
+   11
+  ],
+  "caption": "Bench",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1CB1hGiDSxBXH_hcRSNUEQv32XJZfUN04/view"
+ },
+ {
+  "id": "jv-north-hagerstown-dsc_0402",
+  "full": "photos/full/jv-north-hagerstown-dsc_0402.webp",
+  "thumb": "photos/thumb/jv-north-hagerstown-dsc_0402.webp",
+  "w": 1600,
+  "h": 1063,
+  "level": "jv",
+  "opp": "North Hagerstown",
+  "date": "2026-09-03",
+  "numbers": [
+   17
+  ],
+  "caption": "Bench",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1jROvrGkqix0jcr5CwAc_jrtQW0OtXuo9/view"
  }
 ]

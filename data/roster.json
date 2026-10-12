@@ -4,7 +4,7 @@
     "assistants: coaches Arbiter doesn't list (it only has head coaches), added by hand per the program.",
     "This file only adds what Arbiter doesn't have: coach bios, keyed by name (from the old lionssoccer.org staff page).",
     "Jersey numbers link players to the photo catalog (photos are tagged by visible number).",
-    "players: the rosters, copied from Arbiter on Oct 12 and hand-corrected (Arbiter had Avila/Fyock numbers swapped and Namasse's grade wrong). The nightly refresh doesn't touch them; edit here."
+    "players: the rosters, copied from Arbiter on Oct 12 and hand-corrected (Arbiter had Avila/Fyock numbers swapped and Namasse's number and grade wrong). The nightly refresh doesn't touch them; edit here."
   ],
   "players": {
     "varsity": [
@@ -44,7 +44,7 @@
       {"num": 12, "name": "Christopher Moreno", "grade": "Sophomore", "pos": null, "height": null},
       {"num": 13, "name": "Aidan Defibaugh", "grade": "Freshman", "pos": null, "height": "5'10\""},
       {"num": 14, "name": "George Ross", "grade": "Freshman", "pos": null, "height": null},
-      {"num": 16, "name": "David Alan Namasse deugoue", "grade": "Freshman", "pos": null, "height": null},
+      {"num": 17, "name": "David Alan Namasse deugoue", "grade": "Freshman", "pos": null, "height": null},
       {"num": 18, "name": "Yeabekale Adane", "grade": "Freshman", "pos": null, "height": "5'11\""},
       {"num": 20, "name": "Gannon McCoy", "grade": "Freshman", "pos": null, "height": null},
       {"num": 22, "name": "Raul Garcia", "grade": "Sophomore", "pos": null, "height": "5'6\""},
