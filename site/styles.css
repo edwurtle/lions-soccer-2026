@@ -269,4 +269,4 @@ footer b { color: #fff; }
 .replays { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 .replays a { color: #fff; background: rgba(255, 255, 255, .14); border-radius: 8px; padding: 8px 12px; font-size: 13px; font-weight: 700; text-decoration: none; }
 .replays a:hover { background: rgba(255, 255, 255, .24); }
-.tag-note { display: block; margin-top: 6px; font-size: 12px; color: var(--muted); }
+.tag-note { display: block; margin-top: 8px; font-size: 12px; font-style: italic; color: #9aa3c4; }

@@ -3,8 +3,12 @@
     "Players and coaches are pulled from ArbiterLive by scripts/build.py (team pages below).",
     "assistants: coaches Arbiter doesn't list (it only has head coaches), added by hand per the program.",
     "This file only adds what Arbiter doesn't have: coach bios, keyed by name (from the old lionssoccer.org staff page).",
-    "Jersey numbers link players to the photo catalog (photos are tagged by visible number)."
+    "Jersey numbers link players to the photo catalog (photos are tagged by visible number).",
+    "numbers: jersey numbers Arbiter has wrong, by level then player name."
   ],
+  "numbers": {
+    "varsity": {"Parker Fyock": 15, "William Avila": 8}
+  },
   "arbiter": {
     "varsity": "https://www.arbiterlive.com/Teams/Schedule/7619115?activeEntityId=24622",
     "jv": "https://www.arbiterlive.com/Teams/Schedule/7619114?activeEntityId=24622"
