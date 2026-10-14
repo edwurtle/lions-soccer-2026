@@ -38,7 +38,7 @@ def main():
     for line in (CACHE / "picks.txt").read_text().splitlines():
         if not line.strip() or line.startswith("#"):
             continue
-        tag, nums, caption, featured = (line.split("|") + ["", "", ""])[:4]
+        tag, nums, caption, featured, crop = (line.split("|") + ["", "", "", ""])[:5]
         c = cand[tag]
         info = folders[c["folder"]]
         if "split" in info:  # mixed folder: pick the game by file number
@@ -50,6 +50,9 @@ def main():
             im = Image.open(io.BytesIO(fetch(c["id"], 1600))).convert("RGB")
             if info.get("crop_bottom"):  # trim burned-in camera date stamps
                 im = im.crop((0, 0, im.width, round(im.height * (1 - info["crop_bottom"]))))
+            if crop:  # per-photo "top,bottom" fractions to trim, e.g. empty bleachers above a group shot
+                top, bottom = map(float, crop.split(","))
+                im = im.crop((0, round(im.height * top), im.width, round(im.height * (1 - bottom))))
             im.save(full, "WEBP", quality=80, method=6)
             im.thumbnail((640, 640))
             im.save(thumb, "WEBP", quality=74, method=6)

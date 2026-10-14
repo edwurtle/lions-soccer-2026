@@ -112,8 +112,10 @@
 
   /* ---------- home ---------- */
   function home() {
+    // hero: the latest game's lead featured photo (e.g. the seniors on Senior Night), else a random featured one
     const feat = photos.filter(p => p.featured && p.level === "varsity");
-    const hero = feat[Math.floor(Math.random() * feat.length)];
+    const lastDate = S.games.filter(g => (g.varsity || g.jv) && !g.scrimmage).at(-1)?.date;
+    const hero = feat.find(p => p.date === lastDate) || feat[Math.floor(Math.random() * feat.length)];
     if (hero) $("#hero-bg").style.backgroundImage = `url(${hero.full})`;
 
     const v = record("varsity"), jv = record("jv");
@@ -165,7 +167,7 @@
       $("#highlight").innerHTML = `
         <div class="score-card">
           <div class="eyebrow">${fmtDate(last.date, true)} · ${last.home ? "Home" : "Away"}</div>
-          <h3 class="headline">${headline}</h3>
+          <h3 class="headline">${last.note ? `${esc(last.note)}<small>${headline}</small>` : headline}</h3>
           <div class="duo">${LEVELS.map(l => last[l] ? `
             <div class="lvl"><span>${LABEL[l]}</span><b>${last[l].gf}<em>–</em>${last[l].ga}</b><i class="${last[l].res}">${{ W: "Win", L: "Loss", T: "Tie" }[last[l].res]}</i></div>`
             : `<div class="lvl none"><span>${LABEL[l]}</span><b>—</b><i>${last.canceled[l] ? "Canceled" : "No score"}</i></div>`).join("")}
@@ -174,7 +176,7 @@
             `<a href="${last.watch[l]}" target="_blank" rel="noopener">▶ Watch ${LABEL[l]} replay</a>`).join("")}</div>` : ""}
           <div class="meta">${esc(venue(last))}<br>${pics.length} photo${pics.length === 1 ? "" : "s"} from this game</div>
         </div>
-        <div class="mosaic">${shown.map((p, i) => `
+        <div class="mosaic${shown[0] && shown[0].w / shown[0].h > 1.9 ? " wide" : ""}">${shown.map((p, i) => `
           <button data-i="${i}" aria-label="Open photo"><img src="${i ? p.thumb : p.full}" alt="" loading="lazy">
           ${i === shown.length - 1 && pics.length > shown.length ? `<span class="more">+${pics.length - shown.length + 1} more</span>` : ""}</button>`).join("")}
         </div>`;

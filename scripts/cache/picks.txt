@@ -1,4 +1,4 @@
-# tag | jersey numbers (Walkersville, comma sep) | caption | featured(1)
+# tag | jersey numbers (Walkersville, comma sep) | caption | featured(1) | crop "top,bottom" fractions (optional)
 00-01|10,4,7,8|On the bench|
 00-07|15,17,1|Team huddle|
 00-10|14||
@@ -647,6 +647,34 @@ M20-53|||
 M20-55|23,5||
 N06-49|17,11|Bench|
 N06-50|17|Bench|
+X-0289|1,2,7,11,12,14,18,19,21|Senior Night: the Class of 2027 seniors|1|0.31,0
+X-0285|1,2,7,11,12,14,18,19,21|Seniors and their families|
+X-0228|11|Senior Night|
+X-0237|1|Senior Night|
+X-0245|19|Senior Night|
+X-0252|2|Senior Night|
+X-0257|12|Senior Night|
+X-0263|7|Senior Night|
+X-0270|14|Senior Night|
+X-0276|18|Senior Night|
+X-0279|21|Senior Night|
+X-0441|5,7|Goal celebration|1
+X-0442|5,7|Goal celebration|
+X-0307|9||1
+X-0314|2||
+X-0335|3,9||
+X-0355|5||
+X-0371|3||
+X-0422|11,21||
+X-0423|11,21||
+X-0325|||
+X-0340|||
+X-0393|||
+X-0425|||
+X-0434|||
+X-0439|||
+X-0443||Thumbs up|
+X-0141||Concession stand crew|
 W00-02|8,22||1
 W00-16|7||1
 W00-03|3||
