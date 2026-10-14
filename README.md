@@ -38,7 +38,9 @@ Pillow is needed for `photos.py`: `python3 -m venv .venv && .venv/bin/pip instal
 eyeballing. The sheet tags (e.g. `02-41`) are what go in `picks.txt`.
 
 ## Hosting
-GitHub Pages, same setup as md-soccer-rankings. `.github/workflows/deploy.yml` runs nightly and on every
-push to `main`: it refreshes games/scores/rosters with `scripts/build.py`, commits `site/data.js`, and
-publishes `site/`. If ArbiterLive is unreachable it deploys the last good data.
+Live at https://wvlions.com (www redirects to it). Cloudflare Pages project `wvlions`, connected to this repo:
+it publishes `site/` on every push to `main`, with no build step. `.github/workflows/deploy.yml` runs nightly and on every
+push: it refreshes games/scores with `scripts/build.py` and commits `site/data.js` (that commit is what Cloudflare
+publishes). It also still deploys a copy to GitHub Pages (https://edwurtle.github.io/wvlions/). If ArbiterLive is
+unreachable it deploys the last good data.
 Refresh on demand: `gh workflow run deploy.yml`.
