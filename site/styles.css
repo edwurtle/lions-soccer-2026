@@ -266,9 +266,10 @@ section.block.alt { background: #fff; }
 .lb-top .t { font-weight: 700; } .lb-top .s { color: #9aa3c0; font-size: 14px; }
 .lb-top .sp { flex: 1; }
 .lb-top .dl { position: relative; }
-.lb-top .dl summary { list-style: none; cursor: pointer; background: rgba(255, 255, 255, .1); border-radius: 8px; padding: 8px 12px; font-size: 14px; font-weight: 600; }
+.lb-top .dl summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, .1); border-radius: 8px; padding: 8px 10px 8px 12px; font-size: 14px; font-weight: 600; }
+.lb-top .dl summary svg { width: 16px; height: 16px; transition: transform .15s; }
+.lb-top .dl[open] summary svg { transform: rotate(180deg); }
 .lb-top .dl summary::-webkit-details-marker { display: none; }
-.lb-top .dl summary::after { content: " ▾"; font-size: 11px; opacity: .8; }
 .lb-top .dl-menu { position: absolute; right: 0; top: calc(100% + 6px); z-index: 5; min-width: 250px; background: #141c3a; border: 1px solid rgba(255, 255, 255, .14); border-radius: 10px; padding: 6px; box-shadow: 0 10px 30px rgba(0, 0, 0, .45); }
 .lb-top .dl-menu a { display: grid; gap: 2px; background: none; padding: 9px 10px; border-radius: 7px; }
 .lb-top .dl-menu a:hover { background: rgba(255, 255, 255, .1); }

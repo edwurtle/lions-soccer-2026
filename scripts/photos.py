@@ -56,6 +56,7 @@ def main():
     (OUT / "thumb").mkdir(parents=True, exist_ok=True)
     # originals for the Download button: camera JPGs/PNGs download as-is; a RAW (NEF) pick uses its JPG twin
     # from the same folder when there is one, else Drive's full-resolution JPEG render of the RAW
+    # (served from lh3.googleusercontent.com, which allows the site to fetch it and save it as a file)
     drive = json.loads((CACHE / "drive.json").read_text())
     twin = {(folder, f["name"].rsplit(".", 1)[0].upper()): f["id"]
             for folder, files in drive.items() for f in files if f["name"].upper().endswith((".JPG", ".JPEG"))}
@@ -69,7 +70,7 @@ def main():
         if c["name"].upper().endswith(".NEF"):
             jid = twin.get(stem)
             full = dict(url=uc(jid), type="JPG", converted=False) if jid else \
-                dict(url=f"https://drive.google.com/thumbnail?id={c['id']}&sz=w8000", type="JPG", converted=True)
+                dict(url=f"https://lh3.googleusercontent.com/d/{c['id']}=w8000", type="JPG", converted=True)
             rid = c["id"]
         else:
             full = dict(url=uc(c["id"]), type=c["name"].rsplit(".", 1)[-1].upper().replace("JPEG", "JPG"), converted=False)

@@ -77,12 +77,26 @@
     const opts = [
       { href: p.full, same: true, name: "Web size", type: "WebP", px: `${p.w}×${p.h}`, size: d.web && d.web.bytes, note: "quick to share" },
       d.full && { href: d.full.url, name: "Full size", type: d.full.type, px: d.full.w ? `${d.full.w}×${d.full.h}` : "", size: d.full.bytes,
-        note: d.full.converted ? "made from the RAW file" : "original camera file" },
+        note: d.full.converted ? "made from the RAW file" : "original camera file",
+        fetch: d.full.converted ? `${p.id}.jpg` : "" },
       d.raw && { href: d.raw.url, name: "RAW", type: d.raw.type, px: "", size: d.raw.bytes, note: "for photo-editing apps" },
     ].filter(Boolean);
-    return `<details class="dl"><summary>Download</summary><div class="dl-menu">${opts.map(o =>
-      `<a href="${o.href}" ${o.same ? "download" : `target="_blank" rel="noopener"`}><b>${o.name}</b>
+    return `<details class="dl"><summary>Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><div class="dl-menu">${opts.map(o =>
+      `<a href="${o.href}" ${o.same ? "download" : o.fetch ? `data-fetch="${o.fetch}"` : `target="_blank" rel="noopener"`}><b>${o.name}</b>
         <span>${[o.type, o.px, o.size && mb(o.size)].filter(Boolean).join(" · ")}</span><small>${o.note}</small></a>`).join("")}</div></details>`;
+  }
+  // Drive only shows RAW-made JPEGs in the browser, so fetch the image and save it as a file instead
+  async function saveRemote(a) {
+    const small = a.querySelector("small"), was = small.textContent;
+    small.textContent = "Downloading…";
+    try {
+      const r = await fetch(a.href); if (!r.ok) throw new Error(r.status);
+      const url = URL.createObjectURL(await r.blob());
+      const t = document.createElement("a"); t.href = url; t.download = a.dataset.fetch;
+      document.body.appendChild(t); t.click(); t.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 60000);
+      small.textContent = was;
+    } catch (err) { window.open(a.href, "_blank", "noopener"); small.textContent = was; }
   }
   function closeLb() { lb.classList.remove("open"); lb.setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; }
   function drawLb() {
@@ -109,6 +123,7 @@
   const step = n => { lbIdx = (lbIdx + n + lbList.length) % lbList.length; drawLb(); };
   lb.addEventListener("click", e => {
     const dl = lb.querySelector(".dl[open]"); if (dl && !e.target.closest(".dl")) { dl.open = false; return; }
+    const f = e.target.closest("a[data-fetch]"); if (f) { e.preventDefault(); saveRemote(f); return; }
     if (e.target.closest("[data-close]") || e.target.classList.contains("lb-stage")) closeLb();
     const s = e.target.closest("[data-step]"); if (s) step(+s.dataset.step);
   });
