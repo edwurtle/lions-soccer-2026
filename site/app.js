@@ -33,6 +33,12 @@
   const photos = D.photos;
   const gameKey = p => p.date ? p.date : "x-" + p.opp.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   const gameOn = date => date && S.games.find(x => x.date === date);
+  // clean URLs: /photos[/varsity|jv][/<jersey #>][/<date>-<opponent>] for filters, /photo/<id> for one photo
+  const slugify = s => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const gameSeg = date => { const g = gameOn(date); return g ? `${date}-${slugify(g.opp)}` : date; };
+  const photosUrl = ({ level = "", num = null, game = "" } = {}) =>
+    "/photos" + [level, num ?? "", game ? gameSeg(game) : ""].filter(x => x !== "").map(x => "/" + x).join("");
+  const photoUrl = p => `/photo/${p.id}`;
   const photosFor = (date, level) => photos.filter(p => p.date === date && (!level || p.level === level));
   const sortPhotos = list => [...list].sort((a, b) => (b.featured - a.featured));
   // catalog: varsity before JV within a game, then featured, then the curated order from picks.txt
@@ -63,9 +69,10 @@
   document.querySelectorAll("#nav-tickets").forEach(a => a.href = S.links.tickets);
 
   const lb = $("#lb");
-  let lbList = [], lbIdx = 0;
-  function openLb(list, idx) {
+  let lbList = [], lbIdx = 0, lbReturn = null;
+  function openLb(list, idx, returnUrl) {
     lbList = list; lbIdx = idx;
+    lbReturn = returnUrl || location.pathname + location.search + location.hash;
     lb.classList.add("open"); lb.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
     drawLb();
@@ -85,6 +92,13 @@
       `<a href="${o.href}" ${o.same ? "download" : o.fetch ? `data-fetch="${o.fetch}"` : `target="_blank" rel="noopener"`}><b>${o.name}</b>
         <span>${[o.type, o.px, o.size && mb(o.size)].filter(Boolean).join(" · ")}</span><small>${o.note}</small></a>`).join("")}</div></details>`;
   }
+  // Share: the phone's share sheet where there is one, else copy the photo's link
+  async function sharePhoto(btn) {
+    const p = lbList[lbIdx], url = location.origin + photoUrl(p);
+    if (navigator.share) { try { await navigator.share({ title: p.caption || "Walkersville Lions photo", url }); } catch (e) {} return; }
+    try { await navigator.clipboard.writeText(url); btn.textContent = "Link copied"; } catch (e) { prompt("Copy this link:", url); }
+    setTimeout(() => { btn.textContent = "Share"; }, 2000);
+  }
   // Drive only shows RAW-made JPEGs in the browser, so fetch the image and save it as a file instead
   async function saveRemote(a) {
     const small = a.querySelector("small"), was = small.textContent;
@@ -98,16 +112,20 @@
       small.textContent = was;
     } catch (err) { window.open(a.href, "_blank", "noopener"); small.textContent = was; }
   }
-  function closeLb() { lb.classList.remove("open"); lb.setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; }
+  function closeLb() {
+    if (lbReturn !== null) { history.replaceState(null, "", lbReturn); lbReturn = null; }
+    lb.classList.remove("open"); lb.setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; }
   function drawLb() {
     const p = lbList[lbIdx];
     const g = gameOn(p.date);
+    history.replaceState(null, "", photoUrl(p));
     const who = p.numbers.map(n => { const pl = playerByNum(p.level, n); return pl ? `#${n} ${pl.name}` : `#${n}`; }).join(", ");
     lb.innerHTML = `
       <div class="lb-top">
         <div><div class="t">${p.level === "jv" ? "JV" : "Varsity"} · ${g ? `${vsAt(g)} ${esc(p.opp)}` : esc(p.opp)}</div>
           <div class="s">${p.date ? fmtDate(p.date) : "2026 season"}${p.caption ? " · " + esc(p.caption) : ""}</div></div>
         <span class="sp"></span>
+        <button data-share>Share</button>
         ${dlMenu(p)}
         <button data-close aria-label="Close">✕</button>
       </div>
@@ -116,7 +134,7 @@
         <img src="${p.full}" alt="">
         <button class="lb-nav next" data-step="1" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
       </div>
-      <div class="lb-bot">${lbIdx + 1} / ${lbList.length}${who ? ` · In this photo: ${who.split(", ").map(w => `<a href="photos.html#num=${w.match(/\d+/)[0]}&level=${p.level}">${esc(w)}</a>`).join(" ")}` : ""}
+      <div class="lb-bot">${lbIdx + 1} / ${lbList.length}${who ? ` · In this photo: ${who.split(", ").map(w => `<a href="${photosUrl({ level: p.level, num: +w.match(/\d+/)[0] })}">${esc(w)}</a>`).join(" ")}` : ""}
         · <a href="${p.drive}" target="_blank" rel="noopener">Original in Drive</a></div>`;
     [lbIdx - 1, lbIdx + 1].forEach(i => { const q = lbList[(i + lbList.length) % lbList.length]; if (q) new Image().src = q.full; });
   }
@@ -124,6 +142,7 @@
   lb.addEventListener("click", e => {
     const dl = lb.querySelector(".dl[open]"); if (dl && !e.target.closest(".dl")) { dl.open = false; return; }
     const f = e.target.closest("a[data-fetch]"); if (f) { e.preventDefault(); saveRemote(f); return; }
+    const sh = e.target.closest("[data-share]"); if (sh) { sharePhoto(sh); return; }
     if (e.target.closest("[data-close]") || e.target.classList.contains("lb-stage")) closeLb();
     const s = e.target.closest("[data-step]"); if (s) step(+s.dataset.step);
   });
@@ -215,7 +234,7 @@
         </div>`;
       $("#highlight .mosaic").addEventListener("click", e => {
         const b = e.target.closest("button"); if (!b) return;
-        if (b.querySelector(".more")) location.href = `photos.html#game=${last.date}`;
+        if (b.querySelector(".more")) location.href = photosUrl({ game: last.date });
         else openLb(pics, +b.dataset.i);
       });
       // special games (e.g. Senior Night) get a pinned full-width card that stays for the rest of the season
@@ -223,19 +242,19 @@
         const cover = sortPhotos(photosFor(g.date, "varsity"))[0];
         const seniors = (D.roster.varsity || []).filter(p => p.grade === "Senior");
         return `<div class="special">
-          <a class="ph" href="photos.html#game=${g.date}" style="${cover ? `background-image:url(${cover.full})` : ""}" aria-label="${esc(g.note || g.opp)} photos"></a>
+          <a class="ph" href="${photosUrl({ game: g.date })}" style="${cover ? `background-image:url(${cover.full})` : ""}" aria-label="${esc(g.note || g.opp)} photos"></a>
           <div class="body">
             <div class="ribbon">${esc(g.note || "")}</div>
             <div class="opp">${vsAt(g)} ${esc(g.opp)} · ${fmtDate(g.date, true)}</div>
             <div class="both">${LEVELS.map(l => `<span><small>${LABEL[l]}</small>${g[l] ? resHtml(g[l]) : `<span class="res none">—</span>`}</span>`).join("")}</div>
             ${g.note === "Senior Night" && seniors.length ? `<div class="honor"><small>Honoring our seniors</small>
-              <div class="names">${seniors.map(p => `<a href="photos.html#num=${p.num}&level=varsity">#${p.num} ${esc(p.name)}</a>`).join("")}</div></div>` : ""}
-            <a class="all" href="photos.html#game=${g.date}">See all ${photosFor(g.date).length} photos →</a>
+              <div class="names">${seniors.map(p => `<a href="${photosUrl({ level: "varsity", num: p.num })}">#${p.num} ${esc(p.name)}</a>`).join("")}</div></div>` : ""}
+            <a class="all" href="${photosUrl({ game: g.date })}">See all ${photosFor(g.date).length} photos →</a>
           </div></div>`;
       }).join("");
       $("#recent").innerHTML = special + `<div class="recent-grid">` + played.slice(0, -1).filter(g => !g.feature).reverse().slice(0, 4).map(g => {
         const cover = sortPhotos(photosFor(g.date, "varsity"))[0] || photosFor(g.date)[0];
-        return `<a class="mini" href="photos.html#game=${g.date}">
+        return `<a class="mini" href="${photosUrl({ game: g.date })}">
           <div class="ph" style="${cover ? `background-image:url(${cover.thumb})` : ""}"></div>
           <div class="body"><div class="opp">${vsAt(g)} ${esc(g.opp)}</div><div class="date">${fmtDate(g.date)}</div>
             <div class="both">${LEVELS.map(l => `<span><small>${LABEL[l]}</small>${g[l] ? resHtml(g[l]) : `<span class="res none">—</span>`}</span>`).join("")}</div></div></a>`;
@@ -260,7 +279,7 @@
               ${g.note ? `<span>· ${esc(g.note)}</span>` : ""}</div></div>
           <div class="right">
             ${g.watch && g.watch[level] ? `<a class="photos-link watch-link" href="${g.watch[level]}" target="_blank" rel="noopener">▶ ${past ? "Replay" : "Watch live"}</a>` : "<span></span>"}
-            ${n ? `<a class="photos-link" href="photos.html#game=${g.date}&level=${level}">${ICON.cam}${n} photo${n === 1 ? "" : "s"}</a>` : "<span></span>"}
+            ${n ? `<a class="photos-link" href="${photosUrl({ game: g.date, level })}">${ICON.cam}${n} photo${n === 1 ? "" : "s"}</a>` : "<span></span>"}
             ${g.canceled[level] ? `<span class="res none">Canceled</span>` : past ? (g.scrimmage ? `<span class="res none"></span>` : resHtml(result(g, level), true, true)) : t ? `<a class="btn gold sm" href="${t}" target="_blank" rel="noopener">${ICON.ticket}Tickets</a>` : `<span class="res none">${g.home ? "" : "Away tickets at gate"}</span>`}
           </div></div>`;
       }).join("");
@@ -275,14 +294,14 @@
       if (players.length) {
         $("#roster").innerHTML = `<div class="roster">${players.map(p => {
           const n = photos.filter(x => x.level === level && x.numbers.includes(p.num)).length;
-          return `<a class="player" href="photos.html#num=${p.num}&level=${level}"><div class="jersey">${p.num}</div>
+          return `<a class="player" href="${photosUrl({ level, num: p.num })}"><div class="jersey">${p.num}</div>
             <div><div class="n">${esc(p.name)}</div><div class="m">${[p.grade, p.pos].filter(Boolean).map(esc).join(" · ")}${n ? ` · ${n} photo${n > 1 ? "s" : ""}` : ""}</div></div></a>`;
         }).join("")}</div>`;
       } else {
         const nums = [...new Set(photos.filter(p => p.level === level).flatMap(p => p.numbers))].sort((a, b) => a - b);
         $("#roster").innerHTML = `<div class="empty"><b>The 2026 ${level === "jv" ? "JV" : "varsity"} roster is coming soon.</b><br>
           In the meantime, find your player's photos by jersey number:
-          <div class="numbers">${nums.map(n => `<a href="photos.html#num=${n}&level=${level}">${n}</a>`).join("")}</div></div>`;
+          <div class="numbers">${nums.map(n => `<a href="${photosUrl({ level, num: n })}">${n}</a>`).join("")}</div></div>`;
       }
     }
     function setLevel(level) {
@@ -378,31 +397,39 @@
     photos.forEach(p => { const k = gameKey(p); if (!games.has(k)) games.set(k, { key: k, opp: p.opp, date: p.date }); });
     const gameList = [...games.values()].sort((a, b) => (b.date || "0").localeCompare(a.date || "0"));
     const gameLabel = g => g.date ? `${MON[day(g.date).getMonth()]} ${day(g.date).getDate()} · ${vsAt(gameOn(g.date))} ${g.opp}` : g.opp;
-    const gameDD = dropdown($("#game"), { placeholder: "All games", onChange: v => { state.game = v; writeHash(); draw(); } });
+    const gameDD = dropdown($("#game"), { placeholder: "All games", onChange: v => { state.game = v; writeUrl(); draw(); } });
     gameDD.setGroups([{ items: gameList.map(g => ({ value: g.key, label: gameLabel(g) })) }]);
     const playerDD = dropdown($("#player"), { placeholder: "All players", search: "Type a name or number…", onChange: v => {
       if (!v) state.num = null;
       else { const [l, n] = v.split(":"); state.level = l; state.num = +n; }
-      writeHash(); draw();
+      writeUrl(); draw();
     } });
     $("#ph-sub").innerHTML = `A selection of ${photos.length} photos from ${gameList.length} games, drawn from the season's full collection.
       Tap any photo to view full size or download. <a href="${S.links.drive}" target="_blank" rel="noopener">See all photos in Google Drive →</a>
       <small class="tag-note">Player tags are matched from jersey numbers and may not always be accurate.</small>`;
 
     const state = { q: "", level: "", game: "", num: null };
-    const readHash = () => {
-      const h = new URLSearchParams(location.hash.slice(1));
-      state.level = h.get("level") || ""; state.game = h.get("game") || ""; state.num = h.has("num") ? +h.get("num") : null;
-      state.q = h.get("q") || "";
+    let openId = "", catalogFlat = [];
+    const readUrl = () => {
+      const segs = location.pathname.split("/").filter(Boolean);
+      const old = new URLSearchParams(location.hash.slice(1));  // links from before clean URLs: #level=jv&num=3&game=…
+      Object.assign(state, { level: "", game: "", num: null, q: new URLSearchParams(location.search).get("q") || old.get("q") || "" });
+      if (segs[0] === "photos") for (const s of segs.slice(1)) {
+        if (LEVELS.includes(s)) state.level = s;
+        else if (/^\d{1,3}$/.test(s)) state.num = +s;
+        else if (/^\d{4}-\d{2}-\d{2}/.test(s)) state.game = s.slice(0, 10);
+      }
+      if (old.has("level")) state.level = old.get("level");
+      if (old.has("game")) state.game = old.get("game");
+      if (old.has("num")) state.num = +old.get("num");
+      openId = segs[0] === "photo" ? decodeURIComponent(segs[1] || "") : "";
+      return old.toString() !== "";
     };
-    const writeHash = () => {
-      const h = new URLSearchParams();
-      if (state.game) h.set("game", state.game);
-      if (state.level) h.set("level", state.level);
-      if (state.num !== null) h.set("num", state.num);
-      if (state.q) h.set("q", state.q);
-      history.replaceState(null, "", "#" + h.toString());
+    const filterUrl = () => {
+      const level = state.level || (state.num !== null ? LEVELS.find(l => playerByNum(l, state.num)) || "" : "");
+      return photosUrl({ level, num: state.num, game: state.game }) + (state.q ? "?q=" + encodeURIComponent(state.q) : "");
     };
+    const writeUrl = () => history.replaceState(null, "", filterUrl());
 
     const hay = p => {
       const g = gameOn(p.date);
@@ -455,22 +482,31 @@
             `<a class="btn ghost sm" href="${d.url}" target="_blank" rel="noopener">See all ${d.count} ${d.level === "jv" ? "JV" : "Varsity"} photos from this game in Google Drive →</a>`).join("")}</div>`;
         return html;
       }).join("");
-      $("#catalog").onclick = e => { const b = e.target.closest("button[data-i]"); if (b) openLb(flat, +b.dataset.i); };
+      catalogFlat = flat;
+      $("#catalog").onclick = e => { const b = e.target.closest("button[data-i]"); if (b) openLb(flat, +b.dataset.i, filterUrl()); };
     }
 
     $("#level").addEventListener("click", e => {
       const b = e.target.closest("button"); if (!b) return;
       state.level = b.dataset.level;
       if (state.level && state.num !== null && !photos.some(p => p.level === state.level && p.numbers.includes(state.num))) state.num = null;
-      writeHash(); draw();
+      writeUrl(); draw();
     });
-    const clearAll = () => { Object.assign(state, { q: "", level: "", game: "", num: null }); $("#q").value = ""; writeHash(); draw(); };
+    const clearAll = () => { Object.assign(state, { q: "", level: "", game: "", num: null }); $("#q").value = ""; writeUrl(); draw(); };
     $("#clear").addEventListener("click", clearAll);
     $("#catalog").addEventListener("click", e => { if (e.target.closest("[data-clear]")) clearAll(); });
     let qt;
-    $("#q").addEventListener("input", e => { clearTimeout(qt); qt = setTimeout(() => { state.q = e.target.value.trim(); writeHash(); draw(); }, 150); });
-    const sync = () => { readHash(); if ($("#q").value.trim() !== state.q) $("#q").value = state.q; draw(); };
-    window.addEventListener("hashchange", sync);
+    $("#q").addEventListener("input", e => { clearTimeout(qt); qt = setTimeout(() => { state.q = e.target.value.trim(); writeUrl(); draw(); }, 150); });
+    const sync = () => {
+      const fromOldLink = readUrl();
+      if ($("#q").value.trim() !== state.q) $("#q").value = state.q;
+      draw();
+      if (openId) {
+        const i = catalogFlat.findIndex(p => p.id === openId);
+        if (i >= 0) openLb(catalogFlat, i, filterUrl()); else writeUrl();
+      } else if (fromOldLink) writeUrl();
+    };
+    window.addEventListener("popstate", sync);
     sync();
   }
 

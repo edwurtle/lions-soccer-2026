@@ -210,6 +210,18 @@ def main():
     data = dict(updated=datetime.datetime.now().strftime("%b %-d, %Y"), schedule=sched, roster=roster, photos=photos,
                 driveGames=drive_games)
     (ROOT / "site" / "data.js").write_text("window.DATA = " + json.dumps(data, separators=(",", ":")) + ";\n")
+    # Link-preview text for each photo's own page (/photo/<id>, filled in by functions/photo/[id].js)
+    rosters = {lv: {p["num"]: p["name"] for p in roster.get(lv, [])} for lv in ("varsity", "jv")}
+    games = {g["date"]: g for g in sched["games"]}
+    meta = {}
+    for p in photos:
+        g = games.get(p["date"])
+        who = ", ".join(f"#{n} {rosters[p['level']].get(n, '')}".strip() for n in p["numbers"][:3])
+        game = f"{'JV' if p['level'] == 'jv' else 'Varsity'} {'vs' if g and g['home'] else 'at'} {p['opp']}"
+        when = datetime.date.fromisoformat(p["date"]).strftime("%b %-d") if p["date"] else ""
+        meta[p["id"]] = dict(title=p["caption"] or who or game, image="/" + p["full"],
+                             description=" · ".join(x for x in (game if (p["caption"] or who) else "", when, "Walkersville Lions boys soccer 2026") if x))
+    (ROOT / "site" / "photo-meta.json").write_text(json.dumps(meta, separators=(",", ":")))
     # Cache-bust asset links so browsers pick up new data/code after a rebuild
     stamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     for page in (ROOT / "site").glob("*.html"):
