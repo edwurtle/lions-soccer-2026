@@ -70,6 +70,20 @@
     document.body.style.overflow = "hidden";
     drawLb();
   }
+  // Download menu: only the versions this photo actually has, each labeled with file type, pixel size and file size
+  const mb = n => n >= 1e6 ? `${(n / 1e6).toFixed(1)} MB` : `${Math.max(1, Math.round(n / 1e3))} KB`;
+  function dlMenu(p) {
+    const d = p.download || {};
+    const opts = [
+      { href: p.full, same: true, name: "Web size", type: "WebP", px: `${p.w}×${p.h}`, size: d.web && d.web.bytes, note: "quick to share" },
+      d.full && { href: d.full.url, name: "Full size", type: d.full.type, px: d.full.w ? `${d.full.w}×${d.full.h}` : "", size: d.full.bytes,
+        note: d.full.converted ? "made from the RAW file" : "original camera file" },
+      d.raw && { href: d.raw.url, name: "RAW", type: d.raw.type, px: "", size: d.raw.bytes, note: "for photo-editing apps" },
+    ].filter(Boolean);
+    return `<details class="dl"><summary>Download</summary><div class="dl-menu">${opts.map(o =>
+      `<a href="${o.href}" ${o.same ? "download" : `target="_blank" rel="noopener"`}><b>${o.name}</b>
+        <span>${[o.type, o.px, o.size && mb(o.size)].filter(Boolean).join(" · ")}</span><small>${o.note}</small></a>`).join("")}</div></details>`;
+  }
   function closeLb() { lb.classList.remove("open"); lb.setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; }
   function drawLb() {
     const p = lbList[lbIdx];
@@ -80,7 +94,7 @@
         <div><div class="t">${p.level === "jv" ? "JV" : "Varsity"} · ${g ? `${vsAt(g)} ${esc(p.opp)}` : esc(p.opp)}</div>
           <div class="s">${p.date ? fmtDate(p.date) : "2026 season"}${p.caption ? " · " + esc(p.caption) : ""}</div></div>
         <span class="sp"></span>
-        <a href="${p.download || p.full}" ${p.download ? `target="_blank" rel="noopener" title="Full-size original from Google Drive"` : "download"}>Download</a>
+        ${dlMenu(p)}
         <button data-close aria-label="Close">✕</button>
       </div>
       <div class="lb-stage">
@@ -94,12 +108,14 @@
   }
   const step = n => { lbIdx = (lbIdx + n + lbList.length) % lbList.length; drawLb(); };
   lb.addEventListener("click", e => {
+    const dl = lb.querySelector(".dl[open]"); if (dl && !e.target.closest(".dl")) { dl.open = false; return; }
     if (e.target.closest("[data-close]") || e.target.classList.contains("lb-stage")) closeLb();
     const s = e.target.closest("[data-step]"); if (s) step(+s.dataset.step);
   });
   document.addEventListener("keydown", e => {
     if (!lb.classList.contains("open")) return;
-    if (e.key === "Escape") closeLb();
+    const dl = lb.querySelector(".dl[open]");
+    if (e.key === "Escape") { if (dl) dl.open = false; else closeLb(); }
     if (e.key === "ArrowRight") step(1);
     if (e.key === "ArrowLeft") step(-1);
   });

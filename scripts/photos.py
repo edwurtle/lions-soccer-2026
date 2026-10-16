@@ -10,10 +10,15 @@ Inputs (scripts/cache/): drive.json (folder index from drive_index.py),
 cand.json (contact-sheet tag -> photo), picks.txt (tag|numbers|caption|featured).
 Folder -> game mapping lives in data/photo_folders.json.
 
+For the Download menu it also records each pick's full-size JPEG and RAW (NEF) links
+with their byte sizes and pixel size (read from a ranged request, not a full
+download); these are cached in scripts/cache/originals.json.
+
 Needs Pillow:  python3 -m venv .venv && .venv/bin/pip install pillow
 """
 import io, json, pathlib, re, subprocess, sys
-from PIL import Image
+from PIL import Image, ImageFile
+from concurrent.futures import ThreadPoolExecutor
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CACHE = ROOT / "scripts" / "cache"
@@ -23,6 +28,21 @@ OUT = ROOT / "site" / "photos"
 def fetch(file_id, size):
     url = f"https://drive.google.com/thumbnail?id={file_id}&sz=w{size}"
     return subprocess.check_output(["curl", "-sL", "-A", "Mozilla/5.0", "--max-time", "90", url])
+
+
+def probe(url, head=False):
+    """Total size of a Drive file (and its pixel size if head) without downloading it all."""
+    out = subprocess.run(["curl", "-sL", "-A", "Mozilla/5.0", "--max-time", "90", "-r", "0-262143" if head else "0-0",
+                          "-D", "/dev/stderr", url], capture_output=True)
+    total = re.findall(rb"(?im)^content-range:\s*bytes [^/]+/(\d+)", out.stderr)
+    info = {"bytes": int(total[-1])} if total else {}
+    if head:
+        try:
+            p = ImageFile.Parser(); p.feed(out.stdout)
+            if p.image: info["w"], info["h"] = p.image.size
+        except Exception:
+            pass
+    return info
 
 
 def slug(s):
@@ -40,12 +60,29 @@ def main():
     twin = {(folder, f["name"].rsplit(".", 1)[0].upper()): f["id"]
             for folder, files in drive.items() for f in files if f["name"].upper().endswith((".JPG", ".JPEG"))}
 
-    def original(c):
-        if not c["name"].upper().endswith(".NEF"):
-            return f"https://drive.google.com/uc?export=download&id={c['id']}"
-        jid = twin.get((c["folder"], c["name"].rsplit(".", 1)[0].upper()))
-        return (f"https://drive.google.com/uc?export=download&id={jid}" if jid
-                else f"https://drive.google.com/thumbnail?id={c['id']}&sz=w8000")
+    raws = {(folder, f["name"].rsplit(".", 1)[0].upper()): f["id"]
+            for folder, files in drive.items() for f in files if f["name"].upper().endswith(".NEF")}
+    uc = "https://drive.google.com/uc?export=download&id={}".format
+
+    def links(c):
+        stem = (c["folder"], c["name"].rsplit(".", 1)[0].upper())
+        if c["name"].upper().endswith(".NEF"):
+            jid = twin.get(stem)
+            full = dict(url=uc(jid), type="JPG", converted=False) if jid else \
+                dict(url=f"https://drive.google.com/thumbnail?id={c['id']}&sz=w8000", type="JPG", converted=True)
+            rid = c["id"]
+        else:
+            full = dict(url=uc(c["id"]), type=c["name"].rsplit(".", 1)[-1].upper().replace("JPEG", "JPG"), converted=False)
+            rid = raws.get(stem)
+        return full, (dict(url=uc(rid), type="NEF") if rid else None)
+
+    sizes_path = CACHE / "originals.json"
+    sizes = json.loads(sizes_path.read_text()) if sizes_path.exists() else {}
+
+    def measure(url, head):
+        if url not in sizes:
+            sizes[url] = probe(url, head)
+        return sizes[url]
 
     photos = []
     for line in (CACHE / "picks.txt").read_text().splitlines():
@@ -76,7 +113,17 @@ def main():
             level=info["level"], opp=info["opp"], date=info["date"],
             numbers=[int(n) for n in nums.split(",") if n.strip()],
             caption=caption.strip() or None, featured=featured.strip() == "1",
-            drive=f"https://drive.google.com/file/d/{c['id']}/view", download=original(c)))
+            drive=f"https://drive.google.com/file/d/{c['id']}/view", _links=links(c)))
+    # sizes for the Download menu (cached; only new picks hit Drive)
+    jobs = {l["url"]: l is p["_links"][0] for p in photos for l in p["_links"] if l}
+    with ThreadPoolExecutor(12) as ex:
+        list(ex.map(lambda kv: measure(*kv), [kv for kv in jobs.items() if kv[0] not in sizes]))
+    sizes_path.write_text(json.dumps(sizes, indent=0))
+    for p in photos:
+        full, raw = p.pop("_links")
+        p["download"] = dict(web=dict(bytes=(ROOT / "site" / p["full"]).stat().st_size),
+                             full={**full, **sizes.get(full["url"], {})},
+                             **({"raw": {**raw, **sizes.get(raw["url"], {})}} if raw else {}))
     (ROOT / "data" / "photos.json").write_text(json.dumps(photos, indent=1))
     print(f"{len(photos)} photos -> data/photos.json")
 
