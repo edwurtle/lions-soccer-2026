@@ -112,10 +112,10 @@
 
   /* ---------- home ---------- */
   function home() {
-    // hero: the latest game's lead featured photo (e.g. the seniors on Senior Night), else a random featured one
+    // hero: the lead featured photo from the most recent game that has one (e.g. the seniors on Senior Night)
     const feat = photos.filter(p => p.featured && p.level === "varsity");
-    const lastDate = S.games.filter(g => (g.varsity || g.jv) && !g.scrimmage).at(-1)?.date;
-    const hero = feat.find(p => p.date === lastDate) || feat[Math.floor(Math.random() * feat.length)];
+    const heroDate = feat.reduce((a, p) => p.date > a ? p.date : a, "");
+    const hero = feat.find(p => p.date === heroDate);
     if (hero) $("#hero-bg").style.backgroundImage = `url(${hero.full})`;
 
     const v = record("varsity"), jv = record("jv");
@@ -174,9 +174,9 @@
           </div>
           ${LEVELS.some(l => last.watch && last.watch[l]) ? `<div class="replays">${LEVELS.filter(l => last.watch[l]).map(l =>
             `<a href="${last.watch[l]}" target="_blank" rel="noopener">▶ Watch ${LABEL[l]} replay</a>`).join("")}</div>` : ""}
-          <div class="meta">${esc(venue(last))}<br>${pics.length} photo${pics.length === 1 ? "" : "s"} from this game</div>
+          <div class="meta">${esc(venue(last))}<br>${pics.length ? `${pics.length} photo${pics.length === 1 ? "" : "s"} from this game` : "Photos coming soon"}</div>
         </div>
-        <div class="mosaic${shown[0] && shown[0].w / shown[0].h > 1.9 ? " wide" : ""}">${shown.map((p, i) => `
+        <div class="mosaic${shown[0] && shown[0].w / shown[0].h > 1.9 ? " wide" : ""}">${shown.length ? "" : `<div class="mosaic-empty">Photos from this game will be posted soon</div>`}${shown.map((p, i) => `
           <button data-i="${i}" aria-label="Open photo"><img src="${i ? p.thumb : p.full}" alt="" loading="lazy">
           ${i === shown.length - 1 && pics.length > shown.length ? `<span class="more">+${pics.length - shown.length + 1} more</span>` : ""}</button>`).join("")}
         </div>`;
@@ -185,13 +185,28 @@
         if (b.querySelector(".more")) location.href = `photos.html#game=${last.date}`;
         else openLb(pics, +b.dataset.i);
       });
-      $("#recent").innerHTML = played.slice(0, -1).reverse().slice(0, 4).map(g => {
+      // special games (e.g. Senior Night) get a pinned full-width card that stays for the rest of the season
+      const special = played.slice(0, -1).filter(g => g.feature).reverse().map(g => {
+        const cover = sortPhotos(photosFor(g.date, "varsity"))[0];
+        const seniors = (D.roster.varsity || []).filter(p => p.grade === "Senior");
+        return `<div class="special">
+          <a class="ph" href="photos.html#game=${g.date}" style="${cover ? `background-image:url(${cover.full})` : ""}" aria-label="${esc(g.note || g.opp)} photos"></a>
+          <div class="body">
+            <div class="ribbon">${esc(g.note || "")}</div>
+            <div class="opp">${vsAt(g)} ${esc(g.opp)} · ${fmtDate(g.date, true)}</div>
+            <div class="both">${LEVELS.map(l => `<span><small>${LABEL[l]}</small>${g[l] ? resHtml(g[l]) : `<span class="res none">—</span>`}</span>`).join("")}</div>
+            ${g.note === "Senior Night" && seniors.length ? `<div class="honor"><small>Honoring our seniors</small>
+              <div class="names">${seniors.map(p => `<a href="photos.html#num=${p.num}&level=varsity">#${p.num} ${esc(p.name)}</a>`).join("")}</div></div>` : ""}
+            <a class="all" href="photos.html#game=${g.date}">See all ${photosFor(g.date).length} photos →</a>
+          </div></div>`;
+      }).join("");
+      $("#recent").innerHTML = special + `<div class="recent-grid">` + played.slice(0, -1).filter(g => !g.feature).reverse().slice(0, 4).map(g => {
         const cover = sortPhotos(photosFor(g.date, "varsity"))[0] || photosFor(g.date)[0];
         return `<a class="mini" href="photos.html#game=${g.date}">
           <div class="ph" style="${cover ? `background-image:url(${cover.thumb})` : ""}"></div>
           <div class="body"><div class="opp">${vsAt(g)} ${esc(g.opp)}</div><div class="date">${fmtDate(g.date)}</div>
             <div class="both">${LEVELS.map(l => `<span><small>${LABEL[l]}</small>${g[l] ? resHtml(g[l]) : `<span class="res none">—</span>`}</span>`).join("")}</div></div></a>`;
-      }).join("");
+      }).join("") + `</div>`;
     }
 
     // schedule + team (shared team toggle)
