@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 184 180" role="img" aria-label="Walkersville W">
+  <defs><clipPath id="w-shape"><path id="w-path" d="M0 0H57V34H50L57 81L76 0H108L127 81L134 34H127V0H184V35H172L146 180H109L92 111L75 180H38L12 35H0Z"/></clipPath></defs>
+  <use href="#w-path" fill="#004F9E"/>
+  <path d="M184 0L38 180H184Z" fill="#FDB930" clip-path="url(#w-shape)"/>
+</svg>
