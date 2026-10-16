@@ -50,6 +50,7 @@
   const ICON = {
     cam: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h3l2-3h6l2 3h3a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="4"/></svg>',
     ticket: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3z"/><path d="M13 4v16" stroke-dasharray="2 2"/></svg>',
+    play: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>',
     pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.3-7-12a7 7 0 0 1 14 0c0 5.7-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>',
   };
 
@@ -272,21 +273,27 @@
     function schedule(level) {
       const r = record(level);
       rec.textContent = `${S.season} · ${S.classification}${r.n ? ` · ${level === "jv" ? "JV" : "Varsity"} ${recStr(r)}` : ""}`;
+      // scoreboard rows: a colored block on the left (result, kickoff time or status), one line of links under the opponent
       $("#sched").innerHTML = S.games.map(g => {
-        const d = day(g.date), past = isPast(g), n = photosFor(g.date, level).length, t = ticketUrl(g);
-        return `<div class="game${g.date === nextDate ? " is-next" : ""}">
-          <div class="d"><span>${DOW[d.getDay()]}</span><b>${d.getDate()}</b><span>${MON[d.getMonth()]}</span></div>
-          <div><div class="opp"><span class="vs">${vsAt(g)}</span>${esc(g.opp)}</div>
-            <div class="sub"><span class="pill ${g.home ? "" : "away"}">${g.home ? "Home" : "Away"}</span>
-              ${g.scrimmage ? `<span class="pill scr">Scrimmage</span>` : ""}
-              ${!past ? `<span>${g.time[level] ? esc(g.time[level]) : "Time TBA"}</span>` : ""}
-              <a href="${mapUrl(g)}" target="_blank" rel="noopener">${esc(venue(g))}</a>
-              ${g.note ? `<span>· ${esc(g.note)}</span>` : ""}</div></div>
-          <div class="right">
-            ${g.watch && g.watch[level] ? `<a class="photos-link watch-link" href="${g.watch[level]}" target="_blank" rel="noopener">▶ ${past ? "Replay" : "Watch live"}</a>` : "<span></span>"}
-            ${n ? `<a class="photos-link" href="${photosUrl({ game: g.date, level })}">${ICON.cam}${n} photo${n === 1 ? "" : "s"}</a>` : "<span></span>"}
-            ${g.canceled[level] ? `<span class="res none">Canceled</span>` : past ? (g.scrimmage ? `<span class="res none"></span>` : resHtml(result(g, level), true, true)) : t ? `<a class="btn gold sm" href="${t}" target="_blank" rel="noopener">${ICON.ticket}Tickets</a>` : `<span class="res none">${g.home ? "" : "Away tickets at gate"}</span>`}
-          </div></div>`;
+        const d = day(g.date), past = isPast(g), r = g[level], n = photosFor(g.date, level).length, t = !past && ticketUrl(g);
+        const time = g.time[level], watch = g.watch && g.watch[level];
+        const block = g.canceled[level] ? `<div class="score off"><span>Canceled</span></div>`
+          : g.scrimmage && past ? `<div class="score off"><span>Scrimmage</span></div>`
+          : past ? (r ? `<div class="score ${r.res}"><span>${{ W: "Win", L: "Loss", T: "Tie" }[r.res]}</span><b>${r.gf}–${r.ga}</b></div>`
+                      : `<div class="score off"><span>No score</span></div>`)
+          : time ? `<div class="score up"><span>Kickoff</span><b>${esc(time.replace(/\s?[AP]M$/i, ""))}</b><span>${/AM$/i.test(time) ? "AM" : "PM"}</span></div>`
+          : `<div class="score up"><span>Kickoff</span><b>TBA</b></div>`;
+        const links = [
+          `<a class="venue" href="${mapUrl(g)}" target="_blank" rel="noopener">${esc(venue(g))}</a>`,
+          g.scrimmage && !past ? `<span>Scrimmage</span>` : "",
+          g.note ? `<span>${esc(g.note)}</span>` : "",
+          t ? `<a class="tix" href="${t}" target="_blank" rel="noopener">${ICON.ticket}Tickets</a>` : !past && !g.home ? `<span>Away tickets at the gate</span>` : "",
+          watch ? `<a href="${watch}" target="_blank" rel="noopener">${ICON.play}${past ? "Replay" : "Watch live"}</a>` : "",
+          n ? `<a href="${photosUrl({ game: g.date, level })}">${ICON.cam}${n} photo${n === 1 ? "" : "s"}</a>` : "",
+        ].filter(Boolean).join("");
+        return `<div class="game${g.date === nextDate ? " is-next" : ""}">${block}<div class="body">
+          <div class="hd"><div class="opp"><span class="vs">${vsAt(g)}</span>${esc(g.opp)}</div><div class="when">${DOW[d.getDay()]}, ${MON[d.getMonth()]} ${d.getDate()}</div></div>
+          <div class="links">${links}</div></div></div>`;
       }).join("");
     }
     function team(level) {

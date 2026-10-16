@@ -153,28 +153,34 @@ section.block.alt { background: #fff; }
 
 /* ---------- schedule ---------- */
 .sched { display: grid; gap: 10px; }
-.game { display: grid; grid-template-columns: 74px 1fr auto; align-items: center; gap: 18px; background: var(--card); border-radius: 12px; padding: 14px 18px; box-shadow: var(--shadow); }
+.game { display: grid; grid-template-columns: 92px minmax(0, 1fr); background: var(--card); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; }
 .game.is-next { box-shadow: inset 0 0 0 2px var(--gold), var(--shadow); }
-.game .d { text-align: center; line-height: 1.1; }
-.game .d b { display: block; font: 700 28px/1 var(--display); color: var(--blue-dark); }
-.game .d span { font: 700 11px/1 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.game .score { display: grid; place-items: center; align-content: center; gap: 2px; color: #fff; padding: 12px 6px; text-align: center; }
+.game .score b { font: 700 24px/1 var(--display); font-variant-numeric: tabular-nums; }
+.game .score span { font: 700 10px var(--body); letter-spacing: .12em; text-transform: uppercase; opacity: .9; }
+.game .score.W { background: var(--win); } .game .score.L { background: var(--loss); } .game .score.T { background: var(--tie); }
+.game .score.up { background: var(--blue-dark); } .game .score.off { background: #e3e7f0; color: var(--muted); }
+.game.is-next .score { border-radius: 10px 0 0 10px; margin: 2px 0 2px 2px; }
+.game .body { padding: 12px 16px; display: grid; gap: 6px; min-width: 0; }
+.game .hd { display: flex; justify-content: space-between; gap: 4px 12px; align-items: baseline; flex-wrap: wrap; }
 .game .opp { font: 600 19px/1.2 var(--display); text-transform: uppercase; }
 .game .opp .vs { font: 600 12px var(--body); color: var(--muted); margin-right: 4px; text-transform: lowercase; }
-.game .sub { font-size: 13px; color: var(--muted); margin-top: 3px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-.game .sub a { color: inherit; }
-.game .right { display: grid; grid-template-columns: 96px 110px 112px; align-items: center; gap: 12px; }
-.game .right > :first-child { justify-self: end; }
-.game .right > :last-child { justify-self: start; }
+.game .when { font-size: 13px; color: var(--muted); font-weight: 600; white-space: nowrap; margin: 0; }
+.game .links { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--muted); align-items: center; }
+.game .links a { display: inline-flex; gap: 5px; align-items: center; font-weight: 600; text-decoration: none; }
+.game .links a svg { width: 15px; height: 15px; }
+.game .links a.venue { color: inherit; font-weight: 500; text-decoration: underline; text-decoration-color: #c9cfdd; }
+.game .links a.tix { background: var(--gold); color: var(--navy); padding: 4px 9px; border-radius: 7px; }
 .res { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .res i { font-style: normal; display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; color: #fff; font-size: 12px; }
 .res.W i { background: var(--win); } .res.L i { background: var(--loss); } .res.T i { background: var(--tie); }
 .res.none { color: var(--muted); font-weight: 500; font-size: 13px; }
-.photos-link { font-size: 13px; font-weight: 600; text-decoration: none; display: inline-flex; gap: 5px; align-items: center; }
-.photos-link svg { width: 15px; height: 15px; }
 .btn.sm { padding: 8px 12px; font-size: 13px; }
 @media (max-width: 640px) {
-  .game { grid-template-columns: 56px 1fr; gap: 12px; }
-  .game .right { grid-column: 1 / -1; grid-template-columns: auto auto; justify-content: start; }
+  .game { grid-template-columns: 76px minmax(0, 1fr); }
+  .game .score b { font-size: 21px; }
+  .game .score span { font-size: 9px; letter-spacing: .05em; }
+  .game .body { padding: 10px 12px; }
 }
 .sched-foot { margin-top: 18px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; color: var(--muted); font-size: 14px; }
 
@@ -292,7 +298,6 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
 footer a { color: #d7dcef; }
 footer b { color: #fff; }
 
-.watch-link { color: #c0392b; }
 .drive-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 6px; }
 .replays { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 .replays a { color: #fff; background: rgba(255, 255, 255, .14); border-radius: 8px; padding: 8px 12px; font-size: 13px; font-weight: 700; text-decoration: none; }
