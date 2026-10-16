@@ -170,10 +170,12 @@
 
   /* ---------- home ---------- */
   function home() {
-    // hero: the lead featured photo from the most recent game that has one (e.g. the seniors on Senior Night)
-    const feat = photos.filter(p => p.featured && p.level === "varsity");
-    const heroDate = feat.reduce((a, p) => p.date > a ? p.date : a, "");
-    const hero = feat.find(p => p.date === heroDate);
+    // hero: a random featured photo (varsity or JV) on every load, never the same one twice in a row
+    const feat = photos.filter(p => p.featured);
+    let lastHero = null; try { lastHero = localStorage.getItem("heroPhoto"); } catch (e) {}
+    const pool = feat.length > 1 ? feat.filter(p => p.id !== lastHero) : feat;
+    const hero = pool[Math.floor(Math.random() * pool.length)];
+    try { if (hero) localStorage.setItem("heroPhoto", hero.id); } catch (e) {}
     if (hero) $("#hero-bg").style.backgroundImage = `url(${hero.full})`;
 
     const v = record("varsity"), jv = record("jv");
