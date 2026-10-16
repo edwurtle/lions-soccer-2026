@@ -30,7 +30,8 @@
   const isPast = g => day(g.date) < today || g.varsity || g.jv;
   const ticketUrl = g => g.tickets || (g.home ? S.links.tickets : null);
 
-  const photos = D.photos;
+  // root-relative image paths: the lightbox changes the URL to /photo/<id>, which would break relative ones
+  const photos = D.photos.map(p => ({ ...p, full: "/" + p.full.replace(/^\//, ""), thumb: "/" + p.thumb.replace(/^\//, "") }));
   const gameKey = p => p.date ? p.date : "x-" + p.opp.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   const gameOn = date => date && S.games.find(x => x.date === date);
   // clean URLs: /photos[/varsity|jv][/<jersey #>][/<date>-<opponent>] for filters, /photo/<id> for one photo
