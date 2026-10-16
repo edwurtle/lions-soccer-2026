@@ -35,6 +35,8 @@
   const gameOn = date => date && S.games.find(x => x.date === date);
   const photosFor = (date, level) => photos.filter(p => p.date === date && (!level || p.level === level));
   const sortPhotos = list => [...list].sort((a, b) => (b.featured - a.featured));
+  // catalog: varsity before JV within a game, then featured, then the curated order from picks.txt
+  const catalogSort = list => [...list].sort((a, b) => (a.level === "jv") - (b.level === "jv") || b.featured - a.featured);
   const playerByNum = (level, n) => (D.roster[level] || []).find(p => p.num === n);
   const who = p => p.numbers.map(n => { const pl = playerByNum(p.level, n); return pl ? `#${n} ${esc(pl.name)}` : `#${n}`; }).join(" · ");
 
@@ -406,7 +408,7 @@
       if (!list.length) { $("#catalog").innerHTML = `<div class="noresults">No photos match these filters.<br><button class="btn ghost sm" data-clear>Show all photos</button></div>`; return; }
       const flat = [];
       $("#catalog").innerHTML = gameList.map(g => {
-        const ps = sortPhotos(list.filter(p => gameKey(p) === g.key));
+        const ps = catalogSort(list.filter(p => gameKey(p) === g.key));
         if (!ps.length) return "";
         const sg = gameOn(g.date);
         const levels = [...new Set(ps.map(p => p.level))];

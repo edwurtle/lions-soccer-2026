@@ -10131,30 +10131,6 @@
   "drive": "https://drive.google.com/file/d/1Sr4JSOxCGlatf_-pQMFZYmvPsfKy53ee/view"
  },
  {
-  "id": "varsity-williamsport-dsc_0285",
-  "full": "photos/full/varsity-williamsport-dsc_0285.webp",
-  "thumb": "photos/thumb/varsity-williamsport-dsc_0285.webp",
-  "w": 1600,
-  "h": 1063,
-  "level": "varsity",
-  "opp": "Williamsport",
-  "date": "2026-10-13",
-  "numbers": [
-   1,
-   2,
-   7,
-   11,
-   12,
-   14,
-   18,
-   19,
-   21
-  ],
-  "caption": "Seniors and their families",
-  "featured": false,
-  "drive": "https://drive.google.com/file/d/192tJHLyDaauqVDFWOGgBiPjlTtpRBxyI/view"
- },
- {
   "id": "varsity-williamsport-dsc_0228",
   "full": "photos/full/varsity-williamsport-dsc_0228.webp",
   "thumb": "photos/thumb/varsity-williamsport-dsc_0228.webp",
@@ -10169,6 +10145,39 @@
   "caption": "Senior Night",
   "featured": false,
   "drive": "https://drive.google.com/file/d/1WyMSiaPcgZeQjLSKVhiWdK4MDZQaveS4/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0713",
+  "full": "photos/full/varsity-williamsport-dsc_0713.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0713.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   11
+  ],
+  "caption": "Senior Night",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1wsf0ncbv2tzddg0rNpSSculUo9k4TRNq/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0767",
+  "full": "photos/full/varsity-williamsport-dsc_0767.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0767.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   11,
+   1
+  ],
+  "caption": "Seniors and families",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1DRG_3kAvV6-C3-BaBx1yNDQLRPzrESuD/view"
  },
  {
   "id": "varsity-williamsport-dsc_0237",
@@ -10187,6 +10196,22 @@
   "drive": "https://drive.google.com/file/d/1J1vDJfbok1R3SYC5s_ROAip9rbx1tuol/view"
  },
  {
+  "id": "varsity-williamsport-dsc_0720",
+  "full": "photos/full/varsity-williamsport-dsc_0720.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0720.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   1
+  ],
+  "caption": "Senior Night",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/13fz-loRbH0IB5fu_DzGJ-gzI3GWp0gik/view"
+ },
+ {
   "id": "varsity-williamsport-dsc_0245",
   "full": "photos/full/varsity-williamsport-dsc_0245.webp",
   "thumb": "photos/thumb/varsity-williamsport-dsc_0245.webp",
@@ -10201,6 +10226,22 @@
   "caption": "Senior Night",
   "featured": false,
   "drive": "https://drive.google.com/file/d/1cRcmykO5HWTVed8ETZTHEJHKT8LrEDVf/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0724",
+  "full": "photos/full/varsity-williamsport-dsc_0724.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0724.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   19
+  ],
+  "caption": "Senior Night",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1p0Re_yux4v303Sh2iSVcc0nnmbn7IXXH/view"
  },
  {
   "id": "varsity-williamsport-dsc_0252",
@@ -10235,6 +10276,22 @@
   "drive": "https://drive.google.com/file/d/1IvHGWcgnejXueQUmsxVh9P5MHIJ-Ssm5/view"
  },
  {
+  "id": "varsity-williamsport-dsc_0738",
+  "full": "photos/full/varsity-williamsport-dsc_0738.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0738.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   12
+  ],
+  "caption": "Senior Night",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1EEBbs4AdPSgvDsG3mWqD7dqK0wXEegSr/view"
+ },
+ {
   "id": "varsity-williamsport-dsc_0263",
   "full": "photos/full/varsity-williamsport-dsc_0263.webp",
   "thumb": "photos/thumb/varsity-williamsport-dsc_0263.webp",
@@ -10251,6 +10308,22 @@
   "drive": "https://drive.google.com/file/d/1X57eHbbn_XAb_7VhcHT0-Bf31kc-6CSA/view"
  },
  {
+  "id": "varsity-williamsport-dsc_0746",
+  "full": "photos/full/varsity-williamsport-dsc_0746.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0746.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   7
+  ],
+  "caption": "Senior Night",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1YEGeYK9C4F2daGbn-xJ-KBNZGN-EaKEN/view"
+ },
+ {
   "id": "varsity-williamsport-dsc_0270",
   "full": "photos/full/varsity-williamsport-dsc_0270.webp",
   "thumb": "photos/thumb/varsity-williamsport-dsc_0270.webp",
@@ -10265,6 +10338,22 @@
   "caption": "Senior Night",
   "featured": false,
   "drive": "https://drive.google.com/file/d/1tX4P_pQhZsWI6HYVBU9OCDDfpBS5FYXc/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0762",
+  "full": "photos/full/varsity-williamsport-dsc_0762.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0762.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   14
+  ],
+  "caption": "Senior Night",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1BJlYa5sKL1GXXHnd1VoCExbbGcqmiwfq/view"
  },
  {
   "id": "varsity-williamsport-dsc_0276",
@@ -10299,38 +10388,92 @@
   "drive": "https://drive.google.com/file/d/1HehjJV0uIYr_sZl3kuemaE8iG5uv4V19/view"
  },
  {
-  "id": "varsity-williamsport-dsc_0441",
-  "full": "photos/full/varsity-williamsport-dsc_0441.webp",
-  "thumb": "photos/thumb/varsity-williamsport-dsc_0441.webp",
+  "id": "varsity-williamsport-dsc_0285",
+  "full": "photos/full/varsity-williamsport-dsc_0285.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0285.webp",
   "w": 1600,
   "h": 1063,
   "level": "varsity",
   "opp": "Williamsport",
   "date": "2026-10-13",
   "numbers": [
-   5,
-   7
+   1,
+   2,
+   7,
+   11,
+   12,
+   14,
+   18,
+   19,
+   21
   ],
-  "caption": "Goal celebration",
-  "featured": true,
-  "drive": "https://drive.google.com/file/d/173LCjuJdIyOa2SQBFemKqNtQSVLBZsg8/view"
+  "caption": "Seniors and their families",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/192tJHLyDaauqVDFWOGgBiPjlTtpRBxyI/view"
  },
  {
-  "id": "varsity-williamsport-dsc_0442",
-  "full": "photos/full/varsity-williamsport-dsc_0442.webp",
-  "thumb": "photos/thumb/varsity-williamsport-dsc_0442.webp",
+  "id": "varsity-williamsport-dsc_0735",
+  "full": "photos/full/varsity-williamsport-dsc_0735.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0735.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   1,
+   2,
+   19
+  ],
+  "caption": "Seniors and families",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1liA_XpTFgs5zcSNwxCU_3Fz4gwu4LQJm/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0773",
+  "full": "photos/full/varsity-williamsport-dsc_0773.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0773.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   14
+  ],
+  "caption": "Thanking the coaches",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1W6E4Ol7E75j85GJpEXqU9CJHYNNFuRqx/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0781",
+  "full": "photos/full/varsity-williamsport-dsc_0781.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0781.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   21
+  ],
+  "caption": "Thanking the coaches",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1hu39tpt_8nt8wJlPSqWfZ5FeBihuMRek/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0141",
+  "full": "photos/full/varsity-williamsport-dsc_0141.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0141.webp",
   "w": 1600,
   "h": 1063,
   "level": "varsity",
   "opp": "Williamsport",
   "date": "2026-10-13",
-  "numbers": [
-   5,
-   7
-  ],
-  "caption": "Goal celebration",
+  "numbers": [],
+  "caption": "Concession stand crew",
   "featured": false,
-  "drive": "https://drive.google.com/file/d/1Ywyve_MiyxL_w5phTPAC7Nd4l_bq3oe-/view"
+  "drive": "https://drive.google.com/file/d/1o-CdPs9IdA9mZsbdfdjbYZ8_dE6tuxG1/view"
  },
  {
   "id": "varsity-williamsport-dsc_0307",
@@ -10345,7 +10488,7 @@
    9
   ],
   "caption": null,
-  "featured": true,
+  "featured": false,
   "drive": "https://drive.google.com/file/d/1Te_BF0bbOr0iFZwaNkwkOWUp0K6Mw1Li/view"
  },
  {
@@ -10365,6 +10508,85 @@
   "drive": "https://drive.google.com/file/d/1iv0BYoEKJaxZhUm-XE8PohU2kQ0j4rEf/view"
  },
  {
+  "id": "varsity-williamsport-dsc_0798",
+  "full": "photos/full/varsity-williamsport-dsc_0798.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0798.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   11
+  ],
+  "caption": null,
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1u2GMQE5vedOBLig-jN66QyLlHwZtEr1o/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0805",
+  "full": "photos/full/varsity-williamsport-dsc_0805.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0805.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   21
+  ],
+  "caption": null,
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1Qg7oRmexnjvHw6iudFIJIuB2u0xMCQAg/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0325",
+  "full": "photos/full/varsity-williamsport-dsc_0325.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0325.webp",
+  "w": 1600,
+  "h": 1063,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [],
+  "caption": null,
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1NDBWGsKzi_iArT-mPsi6P3ovhEULyAsL/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0830",
+  "full": "photos/full/varsity-williamsport-dsc_0830.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0830.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   15
+  ],
+  "caption": null,
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1dlPEz7dmuJCXHdwB-_wOhTHPknoWVVO4/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0834",
+  "full": "photos/full/varsity-williamsport-dsc_0834.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0834.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   21,
+   10
+  ],
+  "caption": null,
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1CcmBQz26KsOQYWAP1-EhDiM9C3keIWsR/view"
+ },
+ {
   "id": "varsity-williamsport-dsc_0335",
   "full": "photos/full/varsity-williamsport-dsc_0335.webp",
   "thumb": "photos/thumb/varsity-williamsport-dsc_0335.webp",
@@ -10380,6 +10602,36 @@
   "caption": null,
   "featured": false,
   "drive": "https://drive.google.com/file/d/1gVdV_ZzmqvT7vW8midkteDrZmOOnRAhg/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0340",
+  "full": "photos/full/varsity-williamsport-dsc_0340.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0340.webp",
+  "w": 1600,
+  "h": 1063,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [],
+  "caption": null,
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1a-xV6mwjGOZUK77BoRkzVCrexooFMPa3/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0848",
+  "full": "photos/full/varsity-williamsport-dsc_0848.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0848.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   11
+  ],
+  "caption": null,
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/15tUM0qzJeflB_1HDSKkO2MlC-F-S6KWv/view"
  },
  {
   "id": "varsity-williamsport-dsc_0355",
@@ -10398,6 +10650,54 @@
   "drive": "https://drive.google.com/file/d/1QrNGke_mH-bWtpqcFVTcC2BmZjIKEpcz/view"
  },
  {
+  "id": "varsity-williamsport-dsc_0857",
+  "full": "photos/full/varsity-williamsport-dsc_0857.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0857.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   23
+  ],
+  "caption": null,
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/172CzH-FNG5oQlL71KQsOTeDlezChuI73/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0863",
+  "full": "photos/full/varsity-williamsport-dsc_0863.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0863.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   11
+  ],
+  "caption": "Celebrating with family in the stands",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1f7pc0tEXKqTX8Nc2_pF-JOLCKnCAB3Ez/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0866",
+  "full": "photos/full/varsity-williamsport-dsc_0866.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0866.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   11
+  ],
+  "caption": "Celebrating with family in the stands",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1f39b9uVwqCwrzFuZN-NRoTgRgf4IGbBB/view"
+ },
+ {
   "id": "varsity-williamsport-dsc_0371",
   "full": "photos/full/varsity-williamsport-dsc_0371.webp",
   "thumb": "photos/thumb/varsity-williamsport-dsc_0371.webp",
@@ -10412,6 +10712,53 @@
   "caption": null,
   "featured": false,
   "drive": "https://drive.google.com/file/d/1kdL4Kn1pNabMJHAZNAyHlVnIcPRuxq68/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0393",
+  "full": "photos/full/varsity-williamsport-dsc_0393.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0393.webp",
+  "w": 1600,
+  "h": 1063,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [],
+  "caption": null,
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1liFtJ_0olirXmoKDp58awoghmhCRGSX0/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0869",
+  "full": "photos/full/varsity-williamsport-dsc_0869.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0869.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   11
+  ],
+  "caption": null,
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1i_Pl57Y2CF3RTc-Eama9rCAVev3_jDG0/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0870",
+  "full": "photos/full/varsity-williamsport-dsc_0870.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0870.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   11,
+   19
+  ],
+  "caption": null,
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1ZvfXi52-DV48FkrWCAQmgPFI6-glMy1H/view"
  },
  {
   "id": "varsity-williamsport-dsc_0422",
@@ -10446,48 +10793,6 @@
   "caption": null,
   "featured": false,
   "drive": "https://drive.google.com/file/d/1tBv2HpVT81Uprzr1b2WeBfsDE2DOxzVy/view"
- },
- {
-  "id": "varsity-williamsport-dsc_0325",
-  "full": "photos/full/varsity-williamsport-dsc_0325.webp",
-  "thumb": "photos/thumb/varsity-williamsport-dsc_0325.webp",
-  "w": 1600,
-  "h": 1063,
-  "level": "varsity",
-  "opp": "Williamsport",
-  "date": "2026-10-13",
-  "numbers": [],
-  "caption": null,
-  "featured": false,
-  "drive": "https://drive.google.com/file/d/1NDBWGsKzi_iArT-mPsi6P3ovhEULyAsL/view"
- },
- {
-  "id": "varsity-williamsport-dsc_0340",
-  "full": "photos/full/varsity-williamsport-dsc_0340.webp",
-  "thumb": "photos/thumb/varsity-williamsport-dsc_0340.webp",
-  "w": 1600,
-  "h": 1063,
-  "level": "varsity",
-  "opp": "Williamsport",
-  "date": "2026-10-13",
-  "numbers": [],
-  "caption": null,
-  "featured": false,
-  "drive": "https://drive.google.com/file/d/1a-xV6mwjGOZUK77BoRkzVCrexooFMPa3/view"
- },
- {
-  "id": "varsity-williamsport-dsc_0393",
-  "full": "photos/full/varsity-williamsport-dsc_0393.webp",
-  "thumb": "photos/thumb/varsity-williamsport-dsc_0393.webp",
-  "w": 1600,
-  "h": 1063,
-  "level": "varsity",
-  "opp": "Williamsport",
-  "date": "2026-10-13",
-  "numbers": [],
-  "caption": null,
-  "featured": false,
-  "drive": "https://drive.google.com/file/d/1liFtJ_0olirXmoKDp58awoghmhCRGSX0/view"
  },
  {
   "id": "varsity-williamsport-dsc_0425",
@@ -10532,6 +10837,40 @@
   "drive": "https://drive.google.com/file/d/1fO1s07JfFJZMLt5oRs5cDlzEGLjaZI_9/view"
  },
  {
+  "id": "varsity-williamsport-dsc_0441",
+  "full": "photos/full/varsity-williamsport-dsc_0441.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0441.webp",
+  "w": 1600,
+  "h": 1063,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   5,
+   7
+  ],
+  "caption": "Goal celebration",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/173LCjuJdIyOa2SQBFemKqNtQSVLBZsg8/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0442",
+  "full": "photos/full/varsity-williamsport-dsc_0442.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0442.webp",
+  "w": 1600,
+  "h": 1063,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   5,
+   7
+  ],
+  "caption": "Goal celebration",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1Ywyve_MiyxL_w5phTPAC7Nd4l_bq3oe-/view"
+ },
+ {
   "id": "varsity-williamsport-dsc_0443",
   "full": "photos/full/varsity-williamsport-dsc_0443.webp",
   "thumb": "photos/thumb/varsity-williamsport-dsc_0443.webp",
@@ -10546,18 +10885,138 @@
   "drive": "https://drive.google.com/file/d/1ULTPJIfjqUWwyumBnqJy2wPBrb9VwliE/view"
  },
  {
-  "id": "varsity-williamsport-dsc_0141",
-  "full": "photos/full/varsity-williamsport-dsc_0141.webp",
-  "thumb": "photos/thumb/varsity-williamsport-dsc_0141.webp",
+  "id": "varsity-williamsport-dsc_0881",
+  "full": "photos/full/varsity-williamsport-dsc_0881.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0881.webp",
   "w": 1600,
-  "h": 1063,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   10
+  ],
+  "caption": "Goal celebration",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1vZCOq3ryvUkGqgbP4OpCeJlz2J357jEk/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0884",
+  "full": "photos/full/varsity-williamsport-dsc_0884.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0884.webp",
+  "w": 1600,
+  "h": 950,
   "level": "varsity",
   "opp": "Williamsport",
   "date": "2026-10-13",
   "numbers": [],
-  "caption": "Concession stand crew",
+  "caption": null,
   "featured": false,
-  "drive": "https://drive.google.com/file/d/1o-CdPs9IdA9mZsbdfdjbYZ8_dE6tuxG1/view"
+  "drive": "https://drive.google.com/file/d/1Gfh2AAupslDemHI-pgVCfJ7LBPC7dpfC/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0886",
+  "full": "photos/full/varsity-williamsport-dsc_0886.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0886.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   10
+  ],
+  "caption": "Celebrating with the student section",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1loUFVE6Ln6jokGDPbplvWdElj13xWcPn/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0889",
+  "full": "photos/full/varsity-williamsport-dsc_0889.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0889.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   10
+  ],
+  "caption": "Goal celebration",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1ibEsDl-QYq7cI0GuAba7h2TQXzewmM1D/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0894",
+  "full": "photos/full/varsity-williamsport-dsc_0894.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0894.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [],
+  "caption": "Lions 4, Williamsport 1",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1mTEDK4WgqqNsRXARLZXQs7P9TaTt2l3V/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0899",
+  "full": "photos/full/varsity-williamsport-dsc_0899.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0899.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   11,
+   9,
+   1,
+   5
+  ],
+  "caption": "Final whistle",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1COI3renF-ng7AUgZSs0iznJECVcByr9e/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0900",
+  "full": "photos/full/varsity-williamsport-dsc_0900.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0900.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   11,
+   9,
+   1
+  ],
+  "caption": "Final whistle",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/196Qkwa_w2SzXAq_KhlvJY55XWDJyA9IX/view"
+ },
+ {
+  "id": "varsity-williamsport-dsc_0903",
+  "full": "photos/full/varsity-williamsport-dsc_0903.webp",
+  "thumb": "photos/thumb/varsity-williamsport-dsc_0903.webp",
+  "w": 1600,
+  "h": 950,
+  "level": "varsity",
+  "opp": "Williamsport",
+  "date": "2026-10-13",
+  "numbers": [
+   18,
+   1,
+   9,
+   15,
+   23,
+   12
+  ],
+  "caption": "Final whistle",
+  "featured": false,
+  "drive": "https://drive.google.com/file/d/1oKxG2eWWviSvM26PAb3d8aNebGrRpmbH/view"
  },
  {
   "id": "jv-williamsport-dsc_0146",

@@ -648,33 +648,61 @@ M20-55|23,5||
 N06-49|17,11|Bench|
 N06-50|17|Bench|
 X-0289|1,2,7,11,12,14,18,19,21|Senior Night: the Class of 2027 seniors|1|0.31,0
-X-0285|1,2,7,11,12,14,18,19,21|Seniors and their families|
 X-0228|11|Senior Night|
+Y-0713|11|Senior Night||0,0.11
+Y-0767|11,1|Seniors and families||0,0.11
 X-0237|1|Senior Night|
+Y-0720|1|Senior Night||0,0.11
 X-0245|19|Senior Night|
+Y-0724|19|Senior Night||0,0.11
 X-0252|2|Senior Night|
 X-0257|12|Senior Night|
+Y-0738|12|Senior Night||0,0.11
 X-0263|7|Senior Night|
+Y-0746|7|Senior Night||0,0.11
 X-0270|14|Senior Night|
+Y-0762|14|Senior Night||0,0.11
 X-0276|18|Senior Night|
 X-0279|21|Senior Night|
-X-0441|5,7|Goal celebration|1
-X-0442|5,7|Goal celebration|
-X-0307|9||1
+X-0285|1,2,7,11,12,14,18,19,21|Seniors and their families|
+Y-0735|1,2,19|Seniors and families||0,0.11
+Y-0773|14|Thanking the coaches||0,0.11
+Y-0781|21|Thanking the coaches||0,0.11
+X-0141||Concession stand crew|
+X-0307|9||
 X-0314|2||
+Y-0798|11|||0,0.11
+Y-0805|21|||0,0.11
+X-0325|||
+Y-0830|15|||0,0.11
+Y-0834|21,10|||0,0.11
 X-0335|3,9||
+X-0340|||
+Y-0848|11|||0,0.11
 X-0355|5||
+Y-0857|23|||0,0.11
+Y-0863|11|Celebrating with family in the stands||0,0.11
+Y-0866|11|Celebrating with family in the stands||0,0.11
 X-0371|3||
+X-0393|||
+Y-0869|11|||0,0.11
+Y-0870|11,19|||0,0.11
 X-0422|11,21||
 X-0423|11,21||
-X-0325|||
-X-0340|||
-X-0393|||
 X-0425|||
 X-0434|||
 X-0439|||
+X-0441|5,7|Goal celebration|
+X-0442|5,7|Goal celebration|
 X-0443||Thumbs up|
-X-0141||Concession stand crew|
+Y-0881|10|Goal celebration||0,0.11
+Y-0884||||0,0.11
+Y-0886|10|Celebrating with the student section||0,0.11
+Y-0889|10|Goal celebration||0,0.11
+Y-0894||Lions 4, Williamsport 1||0,0.11
+Y-0899|11,9,1,5|Final whistle||0,0.11
+Y-0900|11,9,1|Final whistle||0,0.11
+Y-0903|18,1,9,15,23,12|Final whistle||0,0.11
 W00-02|8,22||1
 W00-16|7||1
 W00-03|3||
