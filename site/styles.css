@@ -19,7 +19,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; background: var(--navy); } /* navy overscroll (rubber-band) above the header and below the footer */
 body { margin: 0; font: 16px/1.5 var(--body); color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; }
 img { display: block; max-width: 100%; }
 a { color: var(--blue); }
