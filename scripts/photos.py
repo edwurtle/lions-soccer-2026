@@ -34,6 +34,19 @@ def main():
     folders = json.loads((ROOT / "data" / "photo_folders.json").read_text())
     (OUT / "full").mkdir(parents=True, exist_ok=True)
     (OUT / "thumb").mkdir(parents=True, exist_ok=True)
+    # originals for the Download button: camera JPGs/PNGs download as-is; a RAW (NEF) pick uses its JPG twin
+    # from the same folder when there is one, else Drive's full-resolution JPEG render of the RAW
+    drive = json.loads((CACHE / "drive.json").read_text())
+    twin = {(folder, f["name"].rsplit(".", 1)[0].upper()): f["id"]
+            for folder, files in drive.items() for f in files if f["name"].upper().endswith((".JPG", ".JPEG"))}
+
+    def original(c):
+        if not c["name"].upper().endswith(".NEF"):
+            return f"https://drive.google.com/uc?export=download&id={c['id']}"
+        jid = twin.get((c["folder"], c["name"].rsplit(".", 1)[0].upper()))
+        return (f"https://drive.google.com/uc?export=download&id={jid}" if jid
+                else f"https://drive.google.com/thumbnail?id={c['id']}&sz=w8000")
+
     photos = []
     for line in (CACHE / "picks.txt").read_text().splitlines():
         if not line.strip() or line.startswith("#"):
@@ -63,7 +76,7 @@ def main():
             level=info["level"], opp=info["opp"], date=info["date"],
             numbers=[int(n) for n in nums.split(",") if n.strip()],
             caption=caption.strip() or None, featured=featured.strip() == "1",
-            drive=f"https://drive.google.com/file/d/{c['id']}/view"))
+            drive=f"https://drive.google.com/file/d/{c['id']}/view", download=original(c)))
     (ROOT / "data" / "photos.json").write_text(json.dumps(photos, indent=1))
     print(f"{len(photos)} photos -> data/photos.json")
 

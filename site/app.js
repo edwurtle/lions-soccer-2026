@@ -80,7 +80,7 @@
         <div><div class="t">${p.level === "jv" ? "JV" : "Varsity"} · ${g ? `${vsAt(g)} ${esc(p.opp)}` : esc(p.opp)}</div>
           <div class="s">${p.date ? fmtDate(p.date) : "2026 season"}${p.caption ? " · " + esc(p.caption) : ""}</div></div>
         <span class="sp"></span>
-        <a href="${p.full}" download>Download</a>
+        <a href="${p.download || p.full}" ${p.download ? `target="_blank" rel="noopener" title="Full-size original from Google Drive"` : "download"}>Download</a>
         <button data-close aria-label="Close">✕</button>
       </div>
       <div class="lb-stage">
