@@ -44,3 +44,9 @@ push: it refreshes games/scores with `scripts/build.py` and commits `site/data.j
 publishes). It also still deploys a copy to GitHub Pages (https://edwurtle.github.io/wvlions/). If ArbiterLive is
 unreachable it deploys the last good data.
 Refresh on demand: `gh workflow run deploy.yml`.
+
+### Photo URLs
+`/photos[/varsity|jv][/<jersey #>][/<date>-<opponent>]` (e.g. `/photos/varsity/12/2026-10-15-south-carroll`) filters
+the catalog; `/photo/<id>` opens one photo. Both are served by Cloudflare Pages functions in `functions/` (limited to
+those paths by `site/_routes.json`, so images don't count against the free quota). `/photo/<id>` also gets link-preview
+tags from `site/photo-meta.json`, which `build.py` writes. These paths only work on Cloudflare, not the GitHub Pages copy.
