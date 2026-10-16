@@ -70,6 +70,8 @@
 
   const lb = $("#lb");
   let lbList = [], lbIdx = 0, lbReturn = null;
+  // tab title follows the open photo; /photo/<id> pages arrive with that photo's title, so fall back to the catalog's
+  const pageTitle = location.pathname.startsWith("/photo/") ? "Photos · Walkersville Lions Boys Soccer 2026" : document.title;
   function openLb(list, idx, returnUrl) {
     lbList = list; lbIdx = idx;
     lbReturn = returnUrl || location.pathname + location.search + location.hash;
@@ -114,12 +116,14 @@
   }
   function closeLb() {
     if (lbReturn !== null) { history.replaceState(null, "", lbReturn); lbReturn = null; }
+    document.title = pageTitle;
     lb.classList.remove("open"); lb.setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; }
   function drawLb() {
     const p = lbList[lbIdx];
     const g = gameOn(p.date);
     history.replaceState(null, "", photoUrl(p));
     const who = p.numbers.map(n => { const pl = playerByNum(p.level, n); return pl ? `#${n} ${pl.name}` : `#${n}`; }).join(", ");
+    document.title = `${p.caption || who || `${LABEL[p.level]} ${g ? vsAt(g) + " " : ""}${p.opp}`} · Walkersville Lions Soccer`;
     lb.innerHTML = `
       <div class="lb-top">
         <div><div class="t">${p.level === "jv" ? "JV" : "Varsity"} · ${g ? `${vsAt(g)} ${esc(p.opp)}` : esc(p.opp)}</div>
