@@ -722,3 +722,37 @@ W00-34|7,3|Coming off|
 W00-08||Lions fans|
 W00-37||Handshake line|
 W00-39|4,17|After the final whistle|
+J-009|14||
+J-042|2||
+J-043|12,23,3,11,13|Heading to the bench|
+J-045|18,12,23,5|After the game|
+J-046|5,17|After the game|
+J-049|13,12,22,10|Team talk|
+J-050|2,14||
+J-053|20||
+J-054|14,20,8|Defensive wall|
+J-064|6||
+J-065|6||
+J-066|1|On the bench|
+J-090|2,11||
+J-092|2||
+J-093|2||
+J-109|3,17,22|Goal celebration|
+J-110|17,22,25|Goal celebration|
+J-111|2,17||
+J-118|17,25|Goal celebration|
+J-138|17||
+J-142|10,20||
+J-165|17||
+J-169|7||
+J-170|6||
+J-172|20,25||
+J-174|6||
+J-176|2||
+J-178|6||
+J-179|2,6||
+J-180|7||
+J-199|3,12||
+J-205|6,7,9,17,3|Handshake line|
+J-206|18,6,25|Handshake line|
+J-210|22,2||
